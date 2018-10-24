@@ -1,0 +1,61 @@
+<h1 [hidden] = !allTime>Single Player (All Time) </h1>
+<h1 [hidden] = allTime>Single Player (Season) </h1>
+
+<ul class="dropdown">
+  <li>
+    <mat-form-field>
+     
+      <mat-select  placeholder="Select Player">
+        <mat-option  > </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </li>
+</ul>
+
+<ul class="dropdownGame" [hidden] = allTime>
+  <li>
+    <mat-form-field>
+     
+      <mat-select  placeholder="Select Season">
+        <mat-option  > </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </li>
+</ul>
+
+<form  >
+  <input type="radio" (click)="isOn= false; checked = true" name="chart" checked="true" id="battingButton" > Batting
+  <input type="radio" (click)="isOn= true; checked = true" name="chart" id="battingButton"> Pitching
+</form> 
+
+<form  >
+  <input type="radio" (click)="allTime= true; checked = true" name="chart"  > All Time
+  <input type="radio" (click)="allTime= false; checked = true" name="chart" checked="true" > Season
+</form> 
+
+<ul><li>
+  <h2>PLAYER DESCRIPTION</h2>
+</li></ul>
+
+<ul  class="stats">
+  <li id="battingTable" [hidden]="isOn">
+
+    <table mat-table #battingTable #battingTableSort="matSort" [dataSource]="batting" matSort class="mat-elevation-z8">
+
+      
+
+      <tr mat-header-row *matHeaderRowDef="careerBattingColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: careerBattingColumns;"></tr>
+    </table>
+  </li>
+
+  <li id="pitchingTable" [hidden]="!isOn">
+    <table mat-table #pitchingTable #pitchingTableSort="matSort" [dataSource]="pitching" matSort class="mat-elevation-z8">
+
+      <tr mat-header-row *matHeaderRowDef="careerPitchingColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: careerPitchingColumns;"></tr>
+    </table>
+  </li>
+</ul>
+
+

@@ -1,0 +1,80 @@
+<h1>RECORDS</h1>
+
+<form  >
+  <input type="radio" (click)="isOn= false; checked = true" name="chart" checked="true" id="battingButton" > Single Game
+  <input type="radio" (click)="isOn= true; checked = true" name="chart" id="battingButton"> Single Season
+  <input type="radio" (click)="isOn= true; checked = true" name="chart" id="battingButton"> All Time
+</form> 
+
+
+
+
+<ul  class="stats">
+  <h3>Batting</h3>
+  <li id="battingTable" >
+
+    <table mat-table #battingTable #battingTableSort="matSort" [dataSource]="batting" matSort class="mat-elevation-z8">
+
+    
+
+      <tr mat-header-row *matHeaderRowDef="careerBattingColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: careerBattingColumns;"></tr>
+    </table>
+  </li>
+
+  <li id="pitchingTable" >
+    <table mat-table #pitchingTable #pitchingTableSort="matSort" [dataSource]="pitching" matSort class="mat-elevation-z8">
+ 
+
+
+      <tr mat-header-row *matHeaderRowDef="careerPitchingColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: careerPitchingColumns;"></tr>
+    </table>
+  </li>
+
+  <li id="pitchingTable" >
+    <table mat-table #pitchingTable #pitchingTableSort="matSort" [dataSource]="pitching" matSort class="mat-elevation-z8">
+ 
+
+
+      <tr mat-header-row *matHeaderRowDef="careerPitchingColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: careerPitchingColumns;"></tr>
+    </table>
+  </li>
+</ul>
+
+
+<ul  class="statsPitching">
+    <h3>Pitching</h3>
+  <li id="battingTable" >
+
+    <table mat-table #battingTable #battingTableSort="matSort" [dataSource]="batting" matSort class="mat-elevation-z8">
+
+    
+
+      <tr mat-header-row *matHeaderRowDef="careerBattingColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: careerBattingColumns;"></tr>
+    </table>
+  </li>
+
+  <li id="pitchingTable" >
+    <table mat-table #pitchingTable #pitchingTableSort="matSort" [dataSource]="pitching" matSort class="mat-elevation-z8">
+ 
+
+
+      <tr mat-header-row *matHeaderRowDef="careerPitchingColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: careerPitchingColumns;"></tr>
+    </table>
+  </li>
+
+  <li id="pitchingTable" >
+    <table mat-table #pitchingTable #pitchingTableSort="matSort" [dataSource]="pitching" matSort class="mat-elevation-z8">
+ 
+
+
+      <tr mat-header-row *matHeaderRowDef="careerPitchingColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: careerPitchingColumns;"></tr>
+    </table>
+  </li>
+</ul>
+

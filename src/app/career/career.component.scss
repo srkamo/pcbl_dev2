@@ -1,0 +1,32 @@
+table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  // td, th {
+  //   width: 25%;
+  // }
+
+  .search{
+      outline-style: solid;
+  }
+
+  form{
+    width: 70%;
+    text-align: center;
+    display: flex;
+  }
+
+  ul{
+    position: absolute;
+    top: 30%;
+    width: 80%;
+  }
+
+  li{
+    width: 100%;
+  }

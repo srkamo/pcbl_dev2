@@ -1,0 +1,35 @@
+.tableBkGnd{
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 8px;
+    display: inline-block;
+}
+
+.seasonRecords{
+    display: inline-block;
+    margin: 70px;
+    width: 80%;
+  }
+  
+  .seasonLine{
+    width: 100%;
+  }
+  
+  .twoTables{
+    display: flex;
+    vertical-align: top; 
+    position: absolute;
+    top: 30%;
+    width: 80%;
+  }
+  
+  .last3{
+    height: 20%;
+    width: 30%;
+    margin: 70px;
+  }
+  
+  .last3Table{
+    width : 100%;
+  }

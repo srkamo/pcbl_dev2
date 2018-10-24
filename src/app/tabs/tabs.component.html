@@ -1,0 +1,41 @@
+
+<nav>
+  <ul>
+
+      <li>
+          <a routerLink="" [class.activated]="currentUrl == '/'">
+            HOME
+          </a>
+        </li>
+    <li>
+      <a routerLink="career" [class.activated]="currentUrl == '/career'" >
+        CAREER
+      </a>
+    </li>
+    <li>
+      <a routerLink="season" [class.activated]="currentUrl == '/season'">
+        SEASON
+      </a>
+    </li>
+
+    <li>
+        <a routerLink="game" [class.activated]="currentUrl == '/game'">
+          GAME
+        </a>
+      </li>
+
+      <li>
+        <a routerLink="records" [class.activated]="currentUrl == '/records'">
+          RECORDS
+        </a>
+      </li>
+
+      <li>
+        <a routerLink="player" [class.activated]="currentUrl == '/player'">
+          PLAYER
+        </a>
+      </li>
+
+
+  </ul>
+</nav>
