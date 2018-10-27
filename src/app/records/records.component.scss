@@ -1,7 +1,15 @@
 
 ul{
-    position: absolute;
+  position: absolute;
     top: 50%;
+    width: 80%;
+
+    
+  li{
+    width: 40%;
+    
+  }
+    
   }
   table {
     width: 100%;
@@ -39,4 +47,14 @@ ul{
   
   .low{
     top:100%;
+  }
+
+  .recordSelect{
+    position: absolute;
+    top: 25%;
+  }
+
+  .batOrPitch{
+    position: absolute;
+    top:  30%;
   }

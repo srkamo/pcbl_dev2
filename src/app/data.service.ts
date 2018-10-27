@@ -17,7 +17,7 @@ export class DataService {
     return this.http.get('http://qa.pcblroyals.com:8888/api/getAllSeasonsAndRecentGames')
   }
 
-  getCareerBattingStats(){
+  getCareerBattingPitchingStats(){
    
     return this.http.get('http://qa.pcblroyals.com:8888/api/viewCareerStatsAllPlayer')
   }
@@ -30,4 +30,46 @@ export class DataService {
   getStatsBySeason(id){
     return this.http.get('http://qa.pcblroyals.com:8888/api/getStatsBySeason/'+id)
   }
+
+  getStatsBySeasonGame(seasonId, gameId){
+    return this.http.get('http://qa.pcblroyals.com:8888/api/getStatsBySeasonGame/'+seasonId +'/'+gameId)
+  }
+
+  getStatsSeasonByPlayer(playerId){
+    return this.http.get('http://qa.pcblroyals.com:8888/api/getStatsSeasonByPlayer/'+playerId)
+  }
+
+  getStatsGameBySeasonPlayer(seasonId, playerId){
+    return this.http.get('http://qa.pcblroyals.com:8888/api/getStatsGameBySeasonPlayer/'+seasonId + '/' + playerId)
+  }
+
+
+  getAllSeasons(){
+    return this.http.get('http://qa.pcblroyals.com:8888/api/viewAllSeasons')
+
+  }
+
+  getGamesBySeason(seasonId){
+    return this.http.get('http://qa.pcblroyals.com:8888/api/getGamesBySeason/'+ seasonId)
+
+  }
+
+  getAllPlayers(){
+    return this.http.get('http://qa.pcblroyals.com:8888/api/viewAllPlayers')
+  }
+
+  getAllSeasonsForPlayer(playerId){
+    return this.http.get('http://qa.pcblroyals.com:8888/api/getAllSeasonsForPlayer/' + playerId)
+  }
+
+  getAllTimeRecordsBatting(){
+    return this.http.get('http://qa.pcblroyals.com:8888/api/getAllTimeRecordsBatting')
+
+  }
+
+  getAllTimeRecordsPitching(){
+    return this.http.get('http://qa.pcblroyals.com:8888/api/getAllTimeRecordsPitching')
+
+  }
+
 }

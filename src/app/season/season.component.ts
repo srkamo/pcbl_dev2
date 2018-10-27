@@ -28,13 +28,13 @@ export class SeasonComponent implements OnInit {
 
   ngOnInit() {
 
-    this.data.getStatsBySeason(0).subscribe(
+    this.data.getStatsBySeason(1).subscribe(
       data => {
      
         this.dropDown = data[0];
         this.batting = new MatTableDataSource(data[1]);
         this.batting.sort = this.battingTableSort;
-        this.pitching = new MatTableDataSource(data[2]);
+        this.pitching = new MatTableDataSource(data[3]);
         this.pitching.sort = this.pitchingTableSort;
         
       }

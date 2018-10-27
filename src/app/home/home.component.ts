@@ -12,6 +12,8 @@ export class HomeComponent implements OnInit {
   
   seasonsRecord: Object;
   lastThree: Object;
+  allTime: Object;
+
   constructor(private data: DataService) { }
 
   ngOnInit() {
@@ -19,10 +21,14 @@ export class HomeComponent implements OnInit {
     this.data.getAllSeasonsAndRecentGames().subscribe(
       data => {
         this.seasonsRecord = data[0];
-        this.lastThree = data[1];
+        this.allTime = data[1];
+        this.lastThree = data[2];
+        
        }
       
     );
   }
+
+
 
 }

@@ -1,12 +1,22 @@
 <h1 [hidden] = !allTime>Single Player (All Time) </h1>
 <h1 [hidden] = allTime>Single Player (Season) </h1>
 
-<ul class="dropdown">
+<ul class="dropdown" [hidden] = !allTime>
+    <li>
+      <mat-form-field>
+        <mat-select [(value)]="selectedPlayerAll" (selectionChange)="callBackAllSeasonByPlayer(selectedPlayerAll)" placeholder="Select Player">
+          <mat-option *ngFor="let player_ of playersDrop_" [value]="player_"> {{player_.fullNameLastFirst}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </li>
+  </ul>
+
+
+<ul class="dropdown" [hidden] = allTime>
   <li>
     <mat-form-field>
-     
-      <mat-select  placeholder="Select Player">
-        <mat-option  > </mat-option>
+      <mat-select [(value)]="selectedPlayer" (selectionChange)="callBackSeasonByPlayer(selectedPlayer)" placeholder="Select Player">
+        <mat-option *ngFor="let player of playersDrop" [value]="player"> {{player.fullNameLastFirst}} </mat-option>
       </mat-select>
     </mat-form-field>
   </li>
@@ -15,47 +25,533 @@
 <ul class="dropdownGame" [hidden] = allTime>
   <li>
     <mat-form-field>
-     
-      <mat-select  placeholder="Select Season">
-        <mat-option  > </mat-option>
+      <mat-select [(value)]="selected" (selectionChange)="callBackGameBySeasonPlayer(selected.id)" placeholder="Select Season">
+        <mat-option *ngFor="let season of seasonsDrop" [value]="season">{{season.season}} {{season.year}}</mat-option>
       </mat-select>
     </mat-form-field>
   </li>
 </ul>
 
-<form  >
+<form  [hidden] = allTime>
   <input type="radio" (click)="isOn= false; checked = true" name="chart" checked="true" id="battingButton" > Batting
   <input type="radio" (click)="isOn= true; checked = true" name="chart" id="battingButton"> Pitching
 </form> 
 
+<form  [hidden] = !allTime>
+    <input type="radio" (click)="isOn_= false; checked = true" name="chart" checked="true" id="battingButton" > Batting
+    <input type="radio" (click)="isOn_= true; checked = true" name="chart" id="battingButton"> Pitching
+  </form> 
+
 <form  >
-  <input type="radio" (click)="allTime= true; checked = true" name="chart"  > All Time
-  <input type="radio" (click)="allTime= false; checked = true" name="chart" checked="true" > Season
+  <input type="radio" (click)="allTime= true; checked = true; currPlayer = null" name="chart"  > All Time
+  <input type="radio" (click)="allTime= false; checked = true; currPlayer = null" name="chart" checked="true" > Season
 </form> 
 
-<ul><li>
-  <h2>PLAYER DESCRIPTION</h2>
+<ul [hidden] = "!currPlayer" class="playerDesc"><li>
+  <strong>{{currPlayer?.fullNameLastFirst}}</strong> <br> 
+  <strong>Jersey Number: </strong>  {{currPlayer?.jerseyNumber}} <br>
+  <strong>Position: </strong>  {{currPlayer?.positions}}  <br>
+  <strong>Throw Side: </strong>  {{currPlayer?.throwSide}} <br>
+  <strong>Bat Side: </strong>  {{currPlayer?.batSide}} <br>
+       
 </li></ul>
 
-<ul  class="stats">
-  <li id="battingTable" [hidden]="isOn">
+<div [hidden] = allTime>
+<ul [hidden]="isOn" class="stats">
+    <li>
+  
+      <table mat-table #battingTable #battingTableSort="matSort" [dataSource]="battingStats" matSort class="mat-elevation-z8">
+        
+        <ng-container matColumnDef="gameString">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Game </th>
+          <td mat-cell *matCellDef="let element">{{element.gameString}}</td>
+          <!-- <td mat-footer-cell *matFooterCellDef> Team </td> -->
+        </ng-container>
+  
+        <!-- <ng-container matColumnDef="numGames">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> G </th>
+          <td mat-cell *matCellDef="let element"> {{element.numGames}} </td>
+          <td mat-footer-cell *matFooterCellDef> - </td>
+        </ng-container> -->
+  
+        <ng-container matColumnDef="atBats">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> AB </th>
+          <td mat-cell *matCellDef="let element"> {{element.atBats}} </td>
+          <!-- <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.atBats}} </td> -->
+        </ng-container>
+  
+        <ng-container matColumnDef="runs">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> R </th>
+          <td mat-cell *matCellDef="let element"> {{element.runs}} <td>
+          <!-- <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.runs}} </td> -->
+        </ng-container>
+  
+        <ng-container matColumnDef="singles">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> H </th>
+          <td mat-cell *matCellDef="let element"> {{element.singles}} <td>
+          <!-- <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.singles}} </td> -->
+        </ng-container>
+  
+        <ng-container matColumnDef="doubles">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> 2B </th>
+          <td mat-cell *matCellDef="let element"> {{element.doubles}} <td>
+          <!-- <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.doubles}} </td> -->
+        </ng-container>
+  
+        <ng-container matColumnDef="triples">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> 3B </th>
+          <td mat-cell *matCellDef="let element"> {{element.triples}} <td>
+              <!-- <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.triples}} </td> -->
+        </ng-container>
+  
+        <ng-container matColumnDef="homeRuns">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> HR </th>
+          <td mat-cell *matCellDef="let element"> {{element.homeRuns}} <td>
+          <!-- <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.homeRuns}} </td> -->
+        </ng-container>
+  
+        <ng-container matColumnDef="rbis">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> RBI </th>
+          <td mat-cell *matCellDef="let element"> {{element.rbis}} <td>
+              <!-- <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.rbis}} </td> -->
+        </ng-container>
+  
+        <ng-container matColumnDef="walks">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> BB </th>
+          <td mat-cell *matCellDef="let element"> {{element.walks}} <td>
+          <!-- <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.walks}} </td> -->
+        </ng-container>
+  
+        <ng-container matColumnDef="hitByPitch">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> HBP </th>
+          <td mat-cell *matCellDef="let element"> {{element.hitByPitch}} <td>
+              <!-- <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.hitByPitch}} </td> -->
+        </ng-container>
+  
+        <ng-container matColumnDef="sacrifices">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> SAC </th>
+          <td mat-cell *matCellDef="let element"> {{element.sacrifices}} <td>
+          <!-- <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.sacrifices}} </td> -->
+        </ng-container>
+  
+        <ng-container matColumnDef="strikeOuts">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> K </th>
+          <td mat-cell *matCellDef="let element"> {{element.strikeOuts}} <td>
+          <!-- <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.strikeOuts}} </td> -->
+        </ng-container>
+  
+        <ng-container matColumnDef="stolenBases">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> SB </th>
+          <td mat-cell *matCellDef="let element"> {{element.stolenBases}} <td>
+          <!-- <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.stolenBases}} </td> -->
+        </ng-container>
+  
+        <ng-container matColumnDef="passedBalls">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> PB </th>
+          <td mat-cell *matCellDef="let element"> {{element.passedBalls}} <td>
+          <!-- <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.passedBalls}} </td> -->
+        </ng-container>
+  
+        <ng-container matColumnDef="caughtStealing">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> CS </th>
+          <td mat-cell *matCellDef="let element"> {{element.caughtStealing}} <td>
+          <!-- <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.caughtStealing}} </td> -->
+        </ng-container>
+  
+        <ng-container matColumnDef="battingAverage">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> AVG </th>
+          <td mat-cell *matCellDef="let element"> {{element.battingAverage}} <td>
+          <!-- <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.battingAverage}} </td> -->
+        </ng-container>
+  
+        <ng-container matColumnDef="onBasePercentage">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> OBP </th>
+          <td mat-cell *matCellDef="let element"> {{element.onBasePercentage}} <td>
+          <!-- <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.onBasePercentage}} </td> -->
+        </ng-container>
+  
+        <ng-container matColumnDef="sluggingAverage">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> SLG </th>
+          <td mat-cell *matCellDef="let element"> {{element.sluggingAverage}} <td>
+          <!-- <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.sluggingAverage}} </td> -->
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="careerBattingColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: careerBattingColumns;"></tr>
+        <!-- <tr mat-footer-row *matFooterRowDef="careerBattingColumns"></tr> -->
+  
+      </table>
+    </li>
+  </ul>
+  
+  <ul [hidden]="!isOn">
+    <li>
+      <table mat-table #pitchingTable #pitchingTableSort="matSort" [dataSource]="pitchingStats" matSort class="mat-elevation-z8">
+  
+  
+          <ng-container matColumnDef="gameString">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Game </th>
+              <td mat-cell *matCellDef="let element">{{element.gameString}}</td>
+              <!-- <td mat-footer-cell *matFooterCellDef> Team </td> -->
+          </ng-container>
+  
+        <!-- <ng-container matColumnDef="numGames">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> G </th>
+          <td mat-cell *matCellDef="let element"> {{element.numGames}} </td>
+          <td mat-footer-cell *matFooterCellDef> - </td>
+        </ng-container>
+   -->
+        <ng-container matColumnDef="wins">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> W </th>
+          <td mat-cell *matCellDef="let element"> {{element.wins}} </td>
+          <!-- <td mat-footer-cell *matFooterCellDef> {{pitchingAllTime?.wins}} </td> -->
+        </ng-container>
+  
+        <ng-container matColumnDef="losses">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> L </th>
+          <td mat-cell *matCellDef="let element"> {{element.losses}} </td>
+          <!-- <td mat-footer-cell *matFooterCellDef> {{pitchingAllTime?.losses}} </td> -->
+        </ng-container>
+  
+        <ng-container matColumnDef="ties">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> T </th>
+          <td mat-cell *matCellDef="let element"> {{element.ties}} </td>
+          <!-- <td mat-footer-cell *matFooterCellDef> {{pitchingAllTime?.ties}} </td> -->
+        </ng-container>
+  
+        <ng-container matColumnDef="saves">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> S </th>
+          <td mat-cell *matCellDef="let element"> {{element.saves}} </td>
+          <!-- <td mat-footer-cell *matFooterCellDef> {{pitchingAllTime?.saves}} </td> -->
+        </ng-container>
+  
+        <ng-container matColumnDef="inningsPitched">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> IP </th>
+          <td mat-cell *matCellDef="let element"> {{element.inningsPitched}} </td>
+          <!-- <td mat-footer-cell *matFooterCellDef> {{pitchingAllTime?.inningsPitched}} </td> -->
+        </ng-container>
+  
+        <ng-container matColumnDef="earnedRuns">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ER </th>
+          <td mat-cell *matCellDef="let element"> {{element.earnedRuns}} </td>
+          <!-- <td mat-footer-cell *matFooterCellDef> {{pitchingAllTime?.earnedRuns}} </td> -->
+        </ng-container>
+  
+        <ng-container matColumnDef="totalRuns">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> R </th>
+          <td mat-cell *matCellDef="let element"> {{element.totalRuns}} </td>
+          <!-- <td mat-footer-cell *matFooterCellDef> {{pitchingAllTime?.totalRuns}} </td> -->
+        </ng-container>
+  
+        <ng-container matColumnDef="strikeouts">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> K </th>
+          <td mat-cell *matCellDef="let element"> {{element.strikeouts}} </td>
+          <!-- <td mat-footer-cell *matFooterCellDef> {{pitchingAllTime?.strikeouts}} </td> -->
+        </ng-container>
+  
+        <ng-container matColumnDef="walks">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> BB </th>
+          <td mat-cell *matCellDef="let element"> {{element.walks}} </td>
+          <!-- <td mat-footer-cell *matFooterCellDef> {{pitchingAllTime?.walks}} </td> -->
+        </ng-container>
+  
+        <ng-container matColumnDef="hitByPitch">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> HBP </th>
+          <td mat-cell *matCellDef="let element"> {{element.hitByPitch}} </td>
+          <!-- <td mat-footer-cell *matFooterCellDef> {{pitchingAllTime?.hitByPitch}} </td> -->
+        </ng-container>
+  
+        <ng-container matColumnDef="hits">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> H </th>
+          <td mat-cell *matCellDef="let element"> {{element.hits}} </td>
+          <!-- <td mat-footer-cell *matFooterCellDef> {{pitchingAllTime?.hits}} </td> -->
+        </ng-container>
+  
+        <ng-container matColumnDef="wildPitches">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> WP </th>
+          <td mat-cell *matCellDef="let element"> {{element.wildPitches}} </td>
+          <!-- <td mat-footer-cell *matFooterCellDef> {{pitchingAllTime?.wildPitches}} </td> -->
+        </ng-container>
+  
+        <ng-container matColumnDef="stolenBases">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> SB </th>
+          <td mat-cell *matCellDef="let element"> {{element.stolenBases}} </td>
+          <!-- <td mat-footer-cell *matFooterCellDef> {{pitchingAllTime?.stolenBases}} </td> -->
+        </ng-container>
+  
+        <ng-container matColumnDef="pickoffs">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> PO </th>
+          <td mat-cell *matCellDef="let element"> {{element.pickoffs}} </td>
+          <!-- <td mat-footer-cell *matFooterCellDef> {{pitchingAllTime?.pickoffs}} </td> -->
+        </ng-container>
+  
+        <ng-container matColumnDef="earnedRunAverage">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ERA </th>
+          <td mat-cell *matCellDef="let element"> {{element.earnedRunAverage}} </td>
+          <!-- <td mat-footer-cell *matFooterCellDef> {{pitchingAllTime?.earnedRunAverage}} </td> -->
+        </ng-container>
+  
+        <ng-container matColumnDef="walksAndHitsPerInning">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> WHIP </th>
+          <td mat-cell *matCellDef="let element"> {{element.walksAndHitsPerInning}} </td>
+          <!-- <td mat-footer-cell *matFooterCellDef> {{pitchingAllTime?.walksAndHitsPerInning}} </td> -->
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="careerPitchingColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: careerPitchingColumns;"></tr>
+        <!-- <tr mat-footer-row *matFooterRowDef="careerPitchingColumns"></tr> -->
+      </table>
+    </li>
+  </ul>
+</div>
 
-    <table mat-table #battingTable #battingTableSort="matSort" [dataSource]="batting" matSort class="mat-elevation-z8">
 
+<div [hidden] = !allTime>
+    <ul [hidden]="isOn_" class="stats">
+        <li>
       
+          <table mat-table #battingTable_ #battingTableSort_="matSort" [dataSource]="battingStats_" matSort class="mat-elevation-z8">
+            
+            <ng-container matColumnDef="seasonDisplayName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Season </th>
+              <td mat-cell *matCellDef="let element">{{element.seasonDisplayName}}</td>
+              <!-- <td mat-footer-cell *matFooterCellDef> Team </td> -->
+            </ng-container>
+      
+            <!-- <ng-container matColumnDef="numGames">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> G </th>
+              <td mat-cell *matCellDef="let element"> {{element.numGames}} </td>
+              <td mat-footer-cell *matFooterCellDef> - </td>
+            </ng-container> -->
+      
+            <ng-container matColumnDef="atBats">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> AB </th>
+              <td mat-cell *matCellDef="let element"> {{element.atBats}} </td>
+              <!-- <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.atBats}} </td> -->
+            </ng-container>
+      
+            <ng-container matColumnDef="runs">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> R </th>
+              <td mat-cell *matCellDef="let element"> {{element.runs}} <td>
+              <!-- <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.runs}} </td> -->
+            </ng-container>
+      
+            <ng-container matColumnDef="singles">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> H </th>
+              <td mat-cell *matCellDef="let element"> {{element.singles}} <td>
+              <!-- <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.singles}} </td> -->
+            </ng-container>
+      
+            <ng-container matColumnDef="doubles">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> 2B </th>
+              <td mat-cell *matCellDef="let element"> {{element.doubles}} <td>
+              <!-- <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.doubles}} </td> -->
+            </ng-container>
+      
+            <ng-container matColumnDef="triples">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> 3B </th>
+              <td mat-cell *matCellDef="let element"> {{element.triples}} <td>
+                  <!-- <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.triples}} </td> -->
+            </ng-container>
+      
+            <ng-container matColumnDef="homeRuns">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> HR </th>
+              <td mat-cell *matCellDef="let element"> {{element.homeRuns}} <td>
+              <!-- <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.homeRuns}} </td> -->
+            </ng-container>
+      
+            <ng-container matColumnDef="rbis">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> RBI </th>
+              <td mat-cell *matCellDef="let element"> {{element.rbis}} <td>
+                  <!-- <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.rbis}} </td> -->
+            </ng-container>
+      
+            <ng-container matColumnDef="walks">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> BB </th>
+              <td mat-cell *matCellDef="let element"> {{element.walks}} <td>
+              <!-- <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.walks}} </td> -->
+            </ng-container>
+      
+            <ng-container matColumnDef="hitByPitch">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> HBP </th>
+              <td mat-cell *matCellDef="let element"> {{element.hitByPitch}} <td>
+                  <!-- <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.hitByPitch}} </td> -->
+            </ng-container>
+      
+            <ng-container matColumnDef="sacrifices">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> SAC </th>
+              <td mat-cell *matCellDef="let element"> {{element.sacrifices}} <td>
+              <!-- <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.sacrifices}} </td> -->
+            </ng-container>
+      
+            <ng-container matColumnDef="strikeOuts">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> K </th>
+              <td mat-cell *matCellDef="let element"> {{element.strikeOuts}} <td>
+              <!-- <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.strikeOuts}} </td> -->
+            </ng-container>
+      
+            <ng-container matColumnDef="stolenBases">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> SB </th>
+              <td mat-cell *matCellDef="let element"> {{element.stolenBases}} <td>
+              <!-- <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.stolenBases}} </td> -->
+            </ng-container>
+      
+            <ng-container matColumnDef="passedBalls">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> PB </th>
+              <td mat-cell *matCellDef="let element"> {{element.passedBalls}} <td>
+              <!-- <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.passedBalls}} </td> -->
+            </ng-container>
+      
+            <ng-container matColumnDef="caughtStealing">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> CS </th>
+              <td mat-cell *matCellDef="let element"> {{element.caughtStealing}} <td>
+              <!-- <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.caughtStealing}} </td> -->
+            </ng-container>
+      
+            <ng-container matColumnDef="battingAverage">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> AVG </th>
+              <td mat-cell *matCellDef="let element"> {{element.battingAverage}} <td>
+              <!-- <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.battingAverage}} </td> -->
+            </ng-container>
+      
+            <ng-container matColumnDef="onBasePercentage">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> OBP </th>
+              <td mat-cell *matCellDef="let element"> {{element.onBasePercentage}} <td>
+              <!-- <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.onBasePercentage}} </td> -->
+            </ng-container>
+      
+            <ng-container matColumnDef="sluggingAverage">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> SLG </th>
+              <td mat-cell *matCellDef="let element"> {{element.sluggingAverage}} <td>
+              <!-- <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.sluggingAverage}} </td> -->
+            </ng-container>
+      
+            <tr mat-header-row *matHeaderRowDef="seasonBattingColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: seasonBattingColumns;"></tr>
+            <!-- <tr mat-footer-row *matFooterRowDef="seasonBattingColumns"></tr> -->
+      
+          </table>
+        </li>
+      </ul>
+      
+      <ul [hidden]="!isOn_">
+        <li>
+          <table mat-table #pitchingTable_ #pitchingTableSort_="matSort" [dataSource]="pitchingStats_" matSort class="mat-elevation-z8">
+      
+      
+              <ng-container matColumnDef="seasonDisplayName">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Season </th>
+                  <td mat-cell *matCellDef="let element">{{element.seasonDisplayName}}</td>
+                  <!-- <td mat-footer-cell *matFooterCellDef> Team </td> -->
+              </ng-container>
+      
+            <!-- <ng-container matColumnDef="numGames">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> G </th>
+              <td mat-cell *matCellDef="let element"> {{element.numGames}} </td>
+              <td mat-footer-cell *matFooterCellDef> - </td>
+            </ng-container>
+       -->
+            <ng-container matColumnDef="wins">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> W </th>
+              <td mat-cell *matCellDef="let element"> {{element.wins}} </td>
+              <!-- <td mat-footer-cell *matFooterCellDef> {{pitchingAllTime?.wins}} </td> -->
+            </ng-container>
+      
+            <ng-container matColumnDef="losses">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> L </th>
+              <td mat-cell *matCellDef="let element"> {{element.losses}} </td>
+              <!-- <td mat-footer-cell *matFooterCellDef> {{pitchingAllTime?.losses}} </td> -->
+            </ng-container>
+      
+            <ng-container matColumnDef="ties">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> T </th>
+              <td mat-cell *matCellDef="let element"> {{element.ties}} </td>
+              <!-- <td mat-footer-cell *matFooterCellDef> {{pitchingAllTime?.ties}} </td> -->
+            </ng-container>
+      
+            <ng-container matColumnDef="saves">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> S </th>
+              <td mat-cell *matCellDef="let element"> {{element.saves}} </td>
+              <!-- <td mat-footer-cell *matFooterCellDef> {{pitchingAllTime?.saves}} </td> -->
+            </ng-container>
+      
+            <ng-container matColumnDef="inningsPitched">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> IP </th>
+              <td mat-cell *matCellDef="let element"> {{element.inningsPitched}} </td>
+              <!-- <td mat-footer-cell *matFooterCellDef> {{pitchingAllTime?.inningsPitched}} </td> -->
+            </ng-container>
+      
+            <ng-container matColumnDef="earnedRuns">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> ER </th>
+              <td mat-cell *matCellDef="let element"> {{element.earnedRuns}} </td>
+              <!-- <td mat-footer-cell *matFooterCellDef> {{pitchingAllTime?.earnedRuns}} </td> -->
+            </ng-container>
+      
+            <ng-container matColumnDef="totalRuns">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> R </th>
+              <td mat-cell *matCellDef="let element"> {{element.totalRuns}} </td>
+              <!-- <td mat-footer-cell *matFooterCellDef> {{pitchingAllTime?.totalRuns}} </td> -->
+            </ng-container>
+      
+            <ng-container matColumnDef="strikeouts">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> K </th>
+              <td mat-cell *matCellDef="let element"> {{element.strikeouts}} </td>
+              <!-- <td mat-footer-cell *matFooterCellDef> {{pitchingAllTime?.strikeouts}} </td> -->
+            </ng-container>
+      
+            <ng-container matColumnDef="walks">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> BB </th>
+              <td mat-cell *matCellDef="let element"> {{element.walks}} </td>
+              <!-- <td mat-footer-cell *matFooterCellDef> {{pitchingAllTime?.walks}} </td> -->
+            </ng-container>
+      
+            <ng-container matColumnDef="hitByPitch">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> HBP </th>
+              <td mat-cell *matCellDef="let element"> {{element.hitByPitch}} </td>
+              <!-- <td mat-footer-cell *matFooterCellDef> {{pitchingAllTime?.hitByPitch}} </td> -->
+            </ng-container>
+      
+            <ng-container matColumnDef="hits">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> H </th>
+              <td mat-cell *matCellDef="let element"> {{element.hits}} </td>
+              <!-- <td mat-footer-cell *matFooterCellDef> {{pitchingAllTime?.hits}} </td> -->
+            </ng-container>
+      
+            <ng-container matColumnDef="wildPitches">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> WP </th>
+              <td mat-cell *matCellDef="let element"> {{element.wildPitches}} </td>
+              <!-- <td mat-footer-cell *matFooterCellDef> {{pitchingAllTime?.wildPitches}} </td> -->
+            </ng-container>
+      
+            <ng-container matColumnDef="stolenBases">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> SB </th>
+              <td mat-cell *matCellDef="let element"> {{element.stolenBases}} </td>
+              <!-- <td mat-footer-cell *matFooterCellDef> {{pitchingAllTime?.stolenBases}} </td> -->
+            </ng-container>
+      
+            <ng-container matColumnDef="pickoffs">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> PO </th>
+              <td mat-cell *matCellDef="let element"> {{element.pickoffs}} </td>
+              <!-- <td mat-footer-cell *matFooterCellDef> {{pitchingAllTime?.pickoffs}} </td> -->
+            </ng-container>
+      
+            <ng-container matColumnDef="earnedRunAverage">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> ERA </th>
+              <td mat-cell *matCellDef="let element"> {{element.earnedRunAverage}} </td>
+              <!-- <td mat-footer-cell *matFooterCellDef> {{pitchingAllTime?.earnedRunAverage}} </td> -->
+            </ng-container>
+      
+            <ng-container matColumnDef="walksAndHitsPerInning">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> WHIP </th>
+              <td mat-cell *matCellDef="let element"> {{element.walksAndHitsPerInning}} </td>
+              <!-- <td mat-footer-cell *matFooterCellDef> {{pitchingAllTime?.walksAndHitsPerInning}} </td> -->
+            </ng-container>
+      
+            <tr mat-header-row *matHeaderRowDef="seasonPitchingColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: seasonPitchingColumns;"></tr>
+            <!-- <tr mat-footer-row *matFooterRowDef="seasonPitchingColumns"></tr> -->
+          </table>
+        </li>
+      </ul>
 
-      <tr mat-header-row *matHeaderRowDef="careerBattingColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: careerBattingColumns;"></tr>
-    </table>
-  </li>
-
-  <li id="pitchingTable" [hidden]="!isOn">
-    <table mat-table #pitchingTable #pitchingTableSort="matSort" [dataSource]="pitching" matSort class="mat-elevation-z8">
-
-      <tr mat-header-row *matHeaderRowDef="careerPitchingColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: careerPitchingColumns;"></tr>
-    </table>
-  </li>
-</ul>
-
-
+</div>

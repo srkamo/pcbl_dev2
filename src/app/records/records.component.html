@@ -1,80 +1,409 @@
 <h1>RECORDS</h1>
 
-<form  >
-  <input type="radio" (click)="isOn= false; checked = true" name="chart" checked="true" id="battingButton" > Single Game
-  <input type="radio" (click)="isOn= true; checked = true" name="chart" id="battingButton"> Single Season
-  <input type="radio" (click)="isOn= true; checked = true" name="chart" id="battingButton"> All Time
-</form> 
+<div  class="recordSelect"> 
+<form>
+  <input type="radio" (click)=" allTime = false; checked = true" name="chart" checked="true"> All Time
+  <input type="radio" (click)="allTime = true; checked = true " name="chart"> Single Game
+  <input type="radio" (click)="allTime = true; checked = true; " name="chart"> Single Season
+
+</form>
+</div>
+
+<div class="batOrPitch">
+<form [hidden]="allTime" >
+  <input type="radio" (click)=" allTable = false; checked = true;" name="chart" id="battingAll" checked="true"> Batting
+  <input type="radio" (click)="getAllTimeRecordsPitching(); allTable = true; checked = true;" name="chart" id="pitchingAll"> Pitching
+</form>
+</div>
+
+<div [hidden]="allTime">
+  <ul [hidden]="allTable">
+    <li>
+     <strong>Home Runs</strong> 
+      <table mat-table class="mat-elevation-z8 seasonLine" [dataSource]="homeruns">
 
 
+        <ng-container matColumnDef="recordString">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordString}} </td>
+        </ng-container>
 
+        <ng-container matColumnDef="recordValue">
+          <th mat-header-cell *matHeaderCellDef> Record </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordValue}} </td>
+        </ng-container>
 
-<ul  class="stats">
-  <h3>Batting</h3>
-  <li id="battingTable" >
+        <tr mat-header-row *matHeaderRowDef="battingCol"></tr>
+        <tr mat-row *matRowDef="let row; columns: battingCol;"></tr>
 
-    <table mat-table #battingTable #battingTableSort="matSort" [dataSource]="batting" matSort class="mat-elevation-z8">
+      </table>
 
+    </li>
+
+    <li>
+        <strong>Games</strong> 
+      <table mat-table class="mat-elevation-z8 seasonLine" [dataSource]="games">
+        <ng-container matColumnDef="recordString">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordString}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="recordValue">
+          <th mat-header-cell *matHeaderCellDef> Record </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordValue}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="battingCol"></tr>
+        <tr mat-row *matRowDef="let row; columns: battingCol;"></tr>
+      </table>
+    </li>
+
+    <li>
+        <strong>Hits</strong> 
+      <table mat-table class="mat-elevation-z8 seasonLine" [dataSource]="hits">
+        <ng-container matColumnDef="recordString">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordString}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="recordValue">
+          <th mat-header-cell *matHeaderCellDef> Record </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordValue}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="battingCol"></tr>
+        <tr mat-row *matRowDef="let row; columns: battingCol;"></tr>
+      </table>
+    </li>
+
+    <li>
+        <strong>RBIs</strong> 
+      <table mat-table class="mat-elevation-z8 seasonLine" [dataSource]="rbis">
+        <ng-container matColumnDef="recordString">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordString}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="recordValue">
+          <th mat-header-cell *matHeaderCellDef> Record </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordValue}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="battingCol"></tr>
+        <tr mat-row *matRowDef="let row; columns: battingCol;"></tr>
+      </table>
+    </li>
+
+    <li>
+        <strong>MVP</strong> 
+      <table mat-table class="mat-elevation-z8 seasonLine" [dataSource]="mvp">
+        <ng-container matColumnDef="recordString">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordString}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="recordValue">
+          <th mat-header-cell *matHeaderCellDef> Record </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordValue}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="battingCol"></tr>
+        <tr mat-row *matRowDef="let row; columns: battingCol;"></tr>
+      </table>
+    </li>
+
+    <li>
+        <strong>Batting Average</strong> 
+      <table mat-table class="mat-elevation-z8 seasonLine" [dataSource]="battingAverage">
+        <ng-container matColumnDef="recordString">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordString}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="recordValue">
+          <th mat-header-cell *matHeaderCellDef> Record </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordValue}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="battingCol"></tr>
+        <tr mat-row *matRowDef="let row; columns: battingCol;"></tr>
+      </table>
+    </li>
+
+    <li>
+        <strong>Doubles</strong> 
+      <table mat-table class="mat-elevation-z8 seasonLine" [dataSource]="doubles">
+        <ng-container matColumnDef="recordString">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordString}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="recordValue">
+          <th mat-header-cell *matHeaderCellDef> Record </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordValue}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="battingCol"></tr>
+        <tr mat-row *matRowDef="let row; columns: battingCol;"></tr>
+      </table>
+    </li>
+
+    <li>
+        <strong>Walks</strong> 
+      <table mat-table class="mat-elevation-z8 seasonLine" [dataSource]="walks">
+        <ng-container matColumnDef="recordString">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordString}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="recordValue">
+          <th mat-header-cell *matHeaderCellDef> Record </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordValue}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="battingCol"></tr>
+        <tr mat-row *matRowDef="let row; columns: battingCol;"></tr>
+      </table>
+    </li>
+
+    <li>
+
+        <strong>On Base Percentage</strong> 
+      <table mat-table class="mat-elevation-z8 seasonLine" [dataSource]="onBasePercentage">
+        <ng-container matColumnDef="recordString">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordString}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="recordValue">
+          <th mat-header-cell *matHeaderCellDef> Record </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordValue}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="battingCol"></tr>
+        <tr mat-row *matRowDef="let row; columns: battingCol;"></tr>
+      </table>
+    </li>
+
+    <li>
+        <strong>Hit By Pitch</strong> 
+      <table mat-table class="mat-elevation-z8 seasonLine" [dataSource]="hitByPitch">
+        <ng-container matColumnDef="recordString">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordString}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="recordValue">
+          <th mat-header-cell *matHeaderCellDef> Record </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordValue}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="battingCol"></tr>
+        <tr mat-row *matRowDef="let row; columns: battingCol;"></tr>
+      </table>
+    </li>
+
+    <li>
+        <strong>Runs</strong> 
+      <table mat-table class="mat-elevation-z8 seasonLine" [dataSource]="runs">
+        <ng-container matColumnDef="recordString">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordString}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="recordValue">
+          <th mat-header-cell *matHeaderCellDef> Record </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordValue}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="battingCol"></tr>
+        <tr mat-row *matRowDef="let row; columns: battingCol;"></tr>
+      </table>
+    </li>
+
+    <li>
+        <strong>Slugging Percentage</strong> 
+      <table mat-table class="mat-elevation-z8 seasonLine" [dataSource]="slug">
+        <ng-container matColumnDef="recordString">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordString}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="recordValue">
+          <th mat-header-cell *matHeaderCellDef> Record </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordValue}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="battingCol"></tr>
+        <tr mat-row *matRowDef="let row; columns: battingCol;"></tr>
+      </table>
+    </li>
+
+    <li>
+        <strong>Triples</strong> 
+      <table mat-table class="mat-elevation-z8 seasonLine" [dataSource]="triples">
+        <ng-container matColumnDef="recordString">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordString}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="recordValue">
+          <th mat-header-cell *matHeaderCellDef> Record </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordValue}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="battingCol"></tr>
+        <tr mat-row *matRowDef="let row; columns: battingCol;"></tr>
+      </table>
+    </li>
+
+    <li>
+        <strong>Stolen Bases</strong> 
+      <table mat-table class="mat-elevation-z8 seasonLine" [dataSource]="stolenBases">
+        <ng-container matColumnDef="recordString">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordString}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="recordValue">
+          <th mat-header-cell *matHeaderCellDef> Record </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordValue}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="battingCol"></tr>
+        <tr mat-row *matRowDef="let row; columns: battingCol;"></tr>
+      </table>
+
+    </li>
+  </ul>
+
+  <ul [hidden]="!allTable">
     
+    <li>
+        <strong>Cy Young</strong> 
+      <table mat-table class="mat-elevation-z8 seasonLine" [dataSource]="cyYoung">
+        <ng-container matColumnDef="recordString">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordString}} </td>
+        </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="careerBattingColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: careerBattingColumns;"></tr>
-    </table>
-  </li>
+        <ng-container matColumnDef="recordValue">
+          <th mat-header-cell *matHeaderCellDef> Record </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordValue}} </td>
+        </ng-container>
 
-  <li id="pitchingTable" >
-    <table mat-table #pitchingTable #pitchingTableSort="matSort" [dataSource]="pitching" matSort class="mat-elevation-z8">
- 
+        <tr mat-header-row *matHeaderRowDef="battingCol"></tr>
+        <tr mat-row *matRowDef="let row; columns: battingCol;"></tr>
+      </table>
+    </li>
 
+    <li>
+        <strong>Games Pitched</strong> 
+      <table mat-table class="mat-elevation-z8 seasonLine" [dataSource]="gamesPitched">
+        <ng-container matColumnDef="recordString">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordString}} </td>
+        </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="careerPitchingColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: careerPitchingColumns;"></tr>
-    </table>
-  </li>
+        <ng-container matColumnDef="recordValue">
+          <th mat-header-cell *matHeaderCellDef> Record </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordValue}} </td>
+        </ng-container>
 
-  <li id="pitchingTable" >
-    <table mat-table #pitchingTable #pitchingTableSort="matSort" [dataSource]="pitching" matSort class="mat-elevation-z8">
- 
+        <tr mat-header-row *matHeaderRowDef="battingCol"></tr>
+        <tr mat-row *matRowDef="let row; columns: battingCol;"></tr>
+      </table>
+    </li>
 
+    <li>
+        <strong>WHIP</strong> 
+      <table mat-table class="mat-elevation-z8 seasonLine" [dataSource]="whip">
+        <ng-container matColumnDef="recordString">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordString}} </td>
+        </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="careerPitchingColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: careerPitchingColumns;"></tr>
-    </table>
-  </li>
-</ul>
+        <ng-container matColumnDef="recordValue">
+          <th mat-header-cell *matHeaderCellDef> Record </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordValue}} </td>
+        </ng-container>
 
+        <tr mat-header-row *matHeaderRowDef="battingCol"></tr>
+        <tr mat-row *matRowDef="let row; columns: battingCol;"></tr>
+      </table>
+    </li>
 
-<ul  class="statsPitching">
-    <h3>Pitching</h3>
-  <li id="battingTable" >
+    <li>
+        <strong>Strike Outs</strong> 
+      <table mat-table class="mat-elevation-z8 seasonLine" [dataSource]="strikeOuts">
+        <ng-container matColumnDef="recordString">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordString}} </td>
+        </ng-container>
 
-    <table mat-table #battingTable #battingTableSort="matSort" [dataSource]="batting" matSort class="mat-elevation-z8">
+        <ng-container matColumnDef="recordValue">
+          <th mat-header-cell *matHeaderCellDef> Record </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordValue}} </td>
+        </ng-container>
 
-    
+        <tr mat-header-row *matHeaderRowDef="battingCol"></tr>
+        <tr mat-row *matRowDef="let row; columns: battingCol;"></tr>
+      </table>
+    </li>
 
-      <tr mat-header-row *matHeaderRowDef="careerBattingColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: careerBattingColumns;"></tr>
-    </table>
-  </li>
+    <li>
+        <strong>ERA</strong> 
+      <table mat-table class="mat-elevation-z8 seasonLine" [dataSource]="era">
+        <ng-container matColumnDef="recordString">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordString}} </td>
+        </ng-container>
 
-  <li id="pitchingTable" >
-    <table mat-table #pitchingTable #pitchingTableSort="matSort" [dataSource]="pitching" matSort class="mat-elevation-z8">
- 
+        <ng-container matColumnDef="recordValue">
+          <th mat-header-cell *matHeaderCellDef> Record </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordValue}} </td>
+        </ng-container>
 
+        <tr mat-header-row *matHeaderRowDef="battingCol"></tr>
+        <tr mat-row *matRowDef="let row; columns: battingCol;"></tr>
+      </table>
+    </li>
 
-      <tr mat-header-row *matHeaderRowDef="careerPitchingColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: careerPitchingColumns;"></tr>
-    </table>
-  </li>
+    <li>
+        <strong>Wins</strong> 
+      <table mat-table class="mat-elevation-z8 seasonLine" [dataSource]="wins">
+        <ng-container matColumnDef="recordString">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordString}} </td>
+        </ng-container>
 
-  <li id="pitchingTable" >
-    <table mat-table #pitchingTable #pitchingTableSort="matSort" [dataSource]="pitching" matSort class="mat-elevation-z8">
- 
+        <ng-container matColumnDef="recordValue">
+          <th mat-header-cell *matHeaderCellDef> Record </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordValue}} </td>
+        </ng-container>
 
+        <tr mat-header-row *matHeaderRowDef="battingCol"></tr>
+        <tr mat-row *matRowDef="let row; columns: battingCol;"></tr>
+      </table>
+    </li>
 
-      <tr mat-header-row *matHeaderRowDef="careerPitchingColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: careerPitchingColumns;"></tr>
-    </table>
-  </li>
-</ul>
+    <li>
+        <strong>Saves</strong> 
+      <table mat-table class="mat-elevation-z8 seasonLine" [dataSource]="saves">
+        <ng-container matColumnDef="recordString">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordString}} </td>
+        </ng-container>
 
+        <ng-container matColumnDef="recordValue">
+          <th mat-header-cell *matHeaderCellDef> Record </th>
+          <td mat-cell *matCellDef="let element"> {{element.recordValue}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="battingCol"></tr>
+        <tr mat-row *matRowDef="let row; columns: battingCol;"></tr>
+      </table>
+    </li>
+
+  </ul>
+</div>
