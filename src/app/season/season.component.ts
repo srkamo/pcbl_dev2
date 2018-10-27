@@ -14,9 +14,12 @@ export class SeasonComponent implements OnInit {
   batting;
   pitching;
   dropDown;
-  careerBattingColumns: string[] = ['Name', 'numGames', 'AB', 'R', 'H', '2B', '3B', 'HR', 'RBI', 'BB', 'HBP', 'SAC', 'K', 'SB', 'PB', 'CS', 'AVG', 'OBP', 'SLG'];
-  careerPitchingColumns: string[] = ['Name', 'numGames', 'W', 'L', 'T', 'S', 'IP', 'ER', 'R', 'K', 'BB', 'HBP', 'H', 'WP', 'SB', 'PO', 'ERA', 'WHIP'];
 
+  pitchingAllTime;
+  battingAllTime;
+  careerBattingColumns: string[] = ['displayName', 'numGames','atBats', 'runs', 'singles', 'doubles', 'triples', 'homeRuns', 'rbis', 'walks', 'hitByPitch', 'sacrifices', 'strikeOuts', 'stolenBases', 'passedBalls', 'caughtStealing', 'battingAverage', 'onBasePercentage', 'sluggingAverage'];
+  careerPitchingColumns: string[] = ['displayName',  'numGames','wins', 'losses', 'ties', 'saves', 'inningsPitched', 'earnedRuns', 'totalRuns', 'strikeouts', 'walks', 'hitByPitch', 'hits', 'wildPitches', 'stolenBases', 'pickoffs', 'earnedRunAverage', 'walksAndHitsPerInning' ];
+ 
   dataSource;
 
   selected = "";
@@ -36,6 +39,8 @@ export class SeasonComponent implements OnInit {
         this.batting.sort = this.battingTableSort;
         this.pitching = new MatTableDataSource(data[3]);
         this.pitching.sort = this.pitchingTableSort;
+        this.pitchingAllTime = data[4][0];
+        this.battingAllTime = data[2][0];
         
       }
     );
