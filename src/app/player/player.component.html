@@ -60,7 +60,7 @@
 <ul [hidden]="isOn" class="stats">
     <li>
   
-      <table mat-table #battingTable #battingTableSort="matSort" [dataSource]="battingStats" matSort class="mat-elevation-z8">
+      <table mat-table #battingTable #battingTableSort="matSort" matSortDisableClear="true" matSortStart="desc" [dataSource]="battingStats" matSort class="mat-elevation-z8">
         
         <ng-container matColumnDef="gameString">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Game </th>
@@ -186,7 +186,7 @@
   
   <ul [hidden]="!isOn">
     <li>
-      <table mat-table #pitchingTable #pitchingTableSort="matSort" [dataSource]="pitchingStats" matSort class="mat-elevation-z8">
+      <table mat-table #pitchingTable #pitchingTableSort="matSort" matSortDisableClear="true" matSortStart="desc" [dataSource]="pitchingStats" matSort class="mat-elevation-z8">
   
   
           <ng-container matColumnDef="gameString">
@@ -310,7 +310,7 @@
     <ul [hidden]="isOn_" class="stats">
         <li>
       
-          <table mat-table #battingTable_ #battingTableSort_="matSort" [dataSource]="battingStats_" matSort class="mat-elevation-z8">
+          <table mat-table #battingTable_ #battingTableSort_="matSort" matSortDisableClear="true" matSortStart="desc" [dataSource]="battingStats_" matSort class="mat-elevation-z8">
             
             <ng-container matColumnDef="seasonDisplayName">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Season </th>
@@ -436,7 +436,7 @@
       
       <ul [hidden]="!isOn_">
         <li>
-          <table mat-table #pitchingTable_ #pitchingTableSort_="matSort" [dataSource]="pitchingStats_" matSort class="mat-elevation-z8">
+          <table mat-table #pitchingTable_ #pitchingTableSort_="matSort" matSortDisableClear="true" matSortStart="desc" [dataSource]="pitchingStats_" matSort class="mat-elevation-z8">
       
       
               <ng-container matColumnDef="seasonDisplayName">

@@ -72,4 +72,22 @@ export class DataService {
 
   }
 
+  getSeasonRecordsBatting(){
+    return this.http.get('http://qa.pcblroyals.com:8888/api/getSeasonRecordsBatting')
+  }
+
+  getSeasonRecordsPitching(){
+    return this.http.get('http://qa.pcblroyals.com:8888/api/getSeasonRecordsPitching')
+  }
+
+  getGameRecordsBatting(){
+    return this.http.get('http://qa.pcblroyals.com:8888/api/getGameRecordsBatting')
+  }
+
+  getGameRecordsPitching(){
+    return this.http.get('http://qa.pcblroyals.com:8888/api/getGameRecordsPitching')
+  }
+
+  
+
 }
