@@ -20,9 +20,9 @@ export class HomeComponent implements OnInit {
 
     this.data.getAllSeasonsAndRecentGames().subscribe(
       data => {
-        this.seasonsRecord = data[0];
-        this.allTime = data[1];
-        this.lastThree = data[2];
+        this.seasonsRecord = data['seasonRecords'];
+        this.allTime = data['allTimeRecord'][0];
+        this.lastThree = data['recentGames'];
         
        }
       

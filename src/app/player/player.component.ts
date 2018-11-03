@@ -48,22 +48,19 @@ export class PlayerComponent implements OnInit {
       data=>{
         this.playersDrop = data;
         this.playersDrop_ = data;
-        //console.log("[0].firstName: " + this.playersDrop[0].firstName)
+        
       }
     );
 
   }
 
-//callBackSeasonByPlayer callBackSeasonByPlayer
+
 callBackSeasonByPlayer(player){
     this.playerId = player.id;
     this.currPlayer = player;
     this.data.getAllSeasonsForPlayer(player.id).subscribe(
       data => {
         this.seasonsDrop = data;
-        // this.playerAllBat = data[1];
-        // this.playerAllPitch = data[2];
-        
       }
     );
   }
@@ -73,8 +70,6 @@ callBackSeasonByPlayer(player){
 
     this.data.getStatsGameBySeasonPlayer(this.seasonId, this.playerId).subscribe(
       data => {
-        // this.battingStats = data['gameBatting'];
-        // this.pitchingStats = data['gamePitching'];
         this.battingStats = new MatTableDataSource(data['gameBatting']);
         this.battingStats.sort = this.battingTableSort;
         this.pitchingStats = new MatTableDataSource(data['gamePitching']);
@@ -88,8 +83,6 @@ callBackSeasonByPlayer(player){
     this.currPlayer = player;
     this.data.getStatsSeasonByPlayer(player.id).subscribe(
       data => {
-        // this.battingStats = data['gameBatting'];
-        // this.pitchingStats = data['gamePitching'];
         this.battingStats_ = new MatTableDataSource(data['seasonBatting']);
         this.battingStats_.sort = this.battingTableSort_;
         this.pitchingStats_ = new MatTableDataSource(data['seasonPitching']);

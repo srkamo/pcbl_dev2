@@ -28,12 +28,12 @@ export class CareerComponent implements OnInit {
   ngOnInit() {
     this.data.getCareerBattingPitchingStats().subscribe(
       data =>{
-        this.battingStats = new MatTableDataSource( data[0]);
+        this.battingStats = new MatTableDataSource( data['playerBatting']);
         this.battingStats.sort = this.battingTableSort;
-        this.battingAllTime = data[1][0];
-        this.pitchingStats  = new MatTableDataSource( data[2]);
+        this.battingAllTime = data['totalBatting'][0];
+        this.pitchingStats  = new MatTableDataSource( data['playerPitching']);
         this.pitchingStats.sort = this.pitchingTableSort;
-        this.pitchingAllTime = data[3][0];
+        this.pitchingAllTime = data['totalPitching'][0];
       }  
     ); 
     }

@@ -51,13 +51,13 @@ export class GameComponent implements OnInit {
     
     this.data.getStatsBySeasonGame(this.seasonId,id).subscribe(
       data => {
-        this.battingStats = new MatTableDataSource( data[2]);
+        this.battingStats = new MatTableDataSource( data['playerBatting']);
         this.battingStats.sort = this.battingTableSort;
-        this.pitchingStats = new MatTableDataSource( data[4]);
+        this.pitchingStats = new MatTableDataSource( data['playerPitching']);
         this.pitchingStats.sort = this.pitchingTableSort;
-        this.pitchingAllTime = data[5][0];
-        this.battingAllTime = data[3][0];
-        this.gameInfo = data[6][0];
+        this.pitchingAllTime = data['totalPitching'][0];
+        this.battingAllTime = data['totalBatting'][0];
+        this.gameInfo = data['gameInfo'][0];
         
       }
     );
