@@ -1,0 +1,6 @@
+git pull and move into /var/royals/angular/
+delete ng6 and rename the new folder ng6
+cd into the new ng6
+run npm install --unsafe-perm
+then ng build
+if successful then do 'sudo service royals-front restart' 
