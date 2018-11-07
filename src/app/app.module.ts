@@ -18,6 +18,7 @@ import {MatPaginatorModule, MatSortModule, MatFormFieldModule} from '@angular/ma
 import {MatInputModule } from '@angular/material';
 import { MatProgressSpinnerModule } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { MatSelectModule } from '@angular/material/select';
     GameComponent,
     SeasonComponent,
     PlayerComponent,
+    AdminComponent,
     
   ],
   imports: [

@@ -1,0 +1,50 @@
+<ul class="dropdown">
+  <li>
+    <mat-form-field>
+
+      <mat-select [(value)]="selected" (selectionChange)="callBack(selected.id)" placeholder="Season Select">
+        <mat-option *ngFor="let option of dropDown" [value]="option">{{option.value}} </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </li>
+</ul>
+
+  
+<div class="admin" [hidden]=newPlayerHidden>
+   <p>newPlayerHidden</p> 
+</div>
+
+<div class="admin" [hidden]=newGameHidden>
+    <form>
+      <input type="text" placeholder="Team Name">
+      <button onclick=""> Submit </button>
+    </form>
+</div>
+
+<div class="admin" [hidden]=newTeamHidden>
+    <p>newTeamHidden </p>
+</div>
+
+<div class="admin" [hidden]=newBattingStatsHidden>
+  <p>newBattingStatsHidden</p>
+    
+</div>
+
+<div class="admin" [hidden]=newSeasonHidden>
+  <p>newSeasonHidden</p>
+    
+</div>
+
+<div class="admin" [hidden]=newPitchingStatsHidden>
+  <p>newPitchingStatsHidden</p>
+    
+</div>
+
+<div class="admin" [hidden]=updatePlayersHidden>
+  <p>updatePlayersHidden</p>
+    
+</div>
+
+<div class="admin" [hidden]=updateTeamHidden>
+    updateTeamHidden
+</div>

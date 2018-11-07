@@ -14,27 +14,21 @@
 </ul>
 
 
-<!-- <div class="recordSelect">
-  <form>
-    <input type="radio" (click)=" allTime = true; checked = true" name="chart" checked="true"> All Time
-    <input type="radio" (click)="allTime = false; checked = true " name="chart"> Single Game
-    <input type="radio" (click)="allTime = false; checked = true; " name="chart"> Single Season
-
-  </form>
-</div> -->
-
-<div class="batOrPitch">
-  <!-- [hidden]= "!(selected.id == 1)" -->
+<!-- <div class="batOrPitch">
+ 
   <form>
     <input type="radio" (click)=" toggleBatPitch(); checked = true;" name="chart" id="battingAll" checked="true">
     Batting
     <input type="radio" (click)="toggleBatPitch();  " name="chart" id="pitchingAll">
     Pitching
   </form>
-</div>
+</div> -->
 
 <div [hidden]=allTimeHide class="tables">
-  <ul [hidden]=battingHide>
+
+
+  <!-- <ul [hidden]=battingHide> -->
+  <ul>
     <li>
       <strong>Home Runs</strong>
       <table mat-table class="mat-elevation-z8 seasonLine" [dataSource]="homeruns">
@@ -296,7 +290,8 @@
 
 
 
-  <ul [hidden]=!battingHide>
+  <!-- <ul [hidden]=!battingHide> -->
+  <ul class="right">
     <li>
       <strong>Cy Young</strong>
       <table mat-table class="mat-elevation-z8 seasonLine" [dataSource]="cyYoung">
@@ -428,7 +423,8 @@
 
 <div [hidden]=seasonHide>
 
-  <ul [hidden]=battingHide>
+  <!-- <ul [hidden]=battingHide> -->
+  <ul>
     <li>
       <strong>Home Runs</strong>
       <table mat-table class="mat-elevation-z8 seasonLine" [dataSource]="season_hr">
@@ -730,7 +726,8 @@
 
 
   </ul>
-  <ul [hidden]=!battingHide>
+  <!-- <ul [hidden]=!battingHide> -->
+  <ul class="right">
     <li>
       <strong>WHIP</strong>
       <table mat-table class="mat-elevation-z8 seasonLine" [dataSource]="season_whip">
@@ -877,7 +874,8 @@
 
 <div [hidden]=gameHide>
 
-  <ul [hidden]=battingHide>
+  <!-- <ul [hidden]=battingHide> -->
+  <ul>
 
      <li>
       <strong>RBIs</strong>
@@ -1115,8 +1113,8 @@
   </ul>
 
 
-  <ul [hidden]=!battingHide>
-
+  <!-- <ul [hidden]=!battingHide> -->
+    <ul class="right">
       <li>
           <strong>Strike Outs</strong>
           <table mat-table class="mat-elevation-z8 seasonLine" [dataSource]="game_strikeouts">
