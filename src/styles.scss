@@ -1,12 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-
+@import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css');
 body {
     margin: 0;
     background: rgb(61, 162, 245);
     font-family: 'Montserrat', sans-serif;
     height: 100vh;
 }
+
+html{background: rgb(61, 162, 245);}
 
 .title{
     position: absolute; /* or absolute */

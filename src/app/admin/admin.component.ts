@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-admin',
@@ -21,9 +22,14 @@ export class AdminComponent implements OnInit {
    updatePlayersHidden = true;
    updateTeamHidden = true;
 
-  constructor() { }
+  constructor(private data: DataService) { }
 
   ngOnInit() {
+    // this.data.addPlayer().subscribe(
+    //   // data => {
+    //   //   console.log(data);
+    //   // }
+    // );
   }
 
   callBack(id){

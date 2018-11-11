@@ -11,18 +11,15 @@
 
   
 <div class="admin" [hidden]=newPlayerHidden>
-   <p>newPlayerHidden</p> 
+    <app-player-form></app-player-form>
 </div>
 
 <div class="admin" [hidden]=newGameHidden>
-    <form>
-      <input type="text" placeholder="Team Name">
-      <button onclick=""> Submit </button>
-    </form>
+    <app-game-form></app-game-form>
 </div>
 
 <div class="admin" [hidden]=newTeamHidden>
-    <p>newTeamHidden </p>
+    <app-team-form></app-team-form>
 </div>
 
 <div class="admin" [hidden]=newBattingStatsHidden>

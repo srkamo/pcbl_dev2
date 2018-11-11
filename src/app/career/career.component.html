@@ -51,6 +51,12 @@
             <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.triples}} </td>
       </ng-container>
 
+      <ng-container matColumnDef="hits">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> H </th>
+        <td mat-cell *matCellDef="let element"> {{element.hits}} <td>
+        <td mat-footer-cell *matFooterCellDef> {{battingAllTime?.hits}} </td>
+      </ng-container>
+
       <ng-container matColumnDef="homeRuns">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> HR </th>
         <td mat-cell *matCellDef="let element"> {{element.homeRuns}} <td>

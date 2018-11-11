@@ -1,10 +1,23 @@
 .dropdown{
     position: absolute;
-    top: 30%;
+    top: 27%;
     left: 10%;
     width: 30%;
   }
 
   .admin{
+      position: absolute;
       top: 40%;
+      left: 40%;
   }
+
+  
+body {
+  margin: 0;
+  background: rgb(61, 162, 245);
+  font-family: 'Montserrat', sans-serif;
+  height: 100vh;
+}
+
+html{background: rgb(61, 162, 245);
+  height: 100vh;}

@@ -16,7 +16,7 @@ export class CareerComponent implements OnInit {
   pitchingStats;
   pitchingAllTime;
 
-  careerBattingColumns: string[] = ['displayName', 'numGames', 'atBats', 'runs', 'singles', 'doubles', 'triples', 'homeRuns', 'rbis', 'walks', 'hitByPitch', 'sacrifices', 'strikeOuts', 'stolenBases', 'passedBalls', 'caughtStealing', 'battingAverage', 'onBasePercentage', 'sluggingAverage'];
+  careerBattingColumns: string[] = ['displayName', 'numGames', 'atBats', 'runs', 'singles', 'doubles', 'triples', 'hits', 'homeRuns', 'rbis', 'walks', 'hitByPitch', 'sacrifices', 'strikeOuts', 'stolenBases', 'passedBalls', 'caughtStealing', 'battingAverage', 'onBasePercentage', 'sluggingAverage'];
   careerPitchingColumns: string[] = ['displayName', 'numGames', 'wins', 'losses', 'ties', 'saves', 'inningsPitched', 'earnedRuns', 'totalRuns', 'strikeouts', 'walks', 'hitByPitch', 'hits', 'wildPitches', 'stolenBases', 'pickoffs', 'earnedRunAverage', 'walksAndHitsPerInning' ];
  
   @ViewChild('battingTableSort') public battingTableSort: MatSort;

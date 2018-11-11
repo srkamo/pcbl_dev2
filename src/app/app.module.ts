@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule  }   from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,6 +20,9 @@ import {MatInputModule } from '@angular/material';
 import { MatProgressSpinnerModule } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
 import { AdminComponent } from './admin/admin.component';
+import { PlayerFormComponent } from './player-form/player-form.component';
+import { GameFormComponent } from './game-form/game-form.component';
+import { TeamFormComponent } from './team-form/team-form.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +35,10 @@ import { AdminComponent } from './admin/admin.component';
     SeasonComponent,
     PlayerComponent,
     AdminComponent,
+    PlayerFormComponent,
+    GameFormComponent,
+    TeamFormComponent,
+    
     
   ],
   imports: [
@@ -45,6 +53,8 @@ import { AdminComponent } from './admin/admin.component';
     MatProgressSpinnerModule,
     MatSelectModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule ,
   ],
   providers: [],
   bootstrap: [AppComponent]
