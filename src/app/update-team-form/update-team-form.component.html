@@ -1,0 +1,13 @@
+<div class="container chart">
+    <form [formGroup]="updateTeamForm" (ngSubmit)="onSubmit(updateTeamForm.value)">
+      <h1>Teams</h1>
+      
+      <div>
+      <select multiple="multiple" class="form-control" formControlName="teams">
+        <option *ngFor="let team of teams" [value]="team">{{team}}</option>
+      </select>
+    </div>
+  
+    <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+  </div>

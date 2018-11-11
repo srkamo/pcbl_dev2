@@ -1,0 +1,23 @@
+<div class="container chart">
+  <h1>Season Form</h1>
+  <form [formGroup]="seasonForm" (ngSubmit)="onSubmit(seasonForm.value)"  >
+
+    <div class="form-group">
+      <label >Season</label>
+      <input type="text" class="form-control" formControlName="season" required>
+    </div>
+
+    <div class="form-group">
+      <label >Year</label>
+      <input type="text" class="form-control" formControlName="year" required>
+    </div>
+
+    <div class="form-group">
+      <label >Division</label>
+      <input type="text" class="form-control" formControlName="division" required>
+    </div>
+
+    <button type="submit" class="btn btn-success">Submit</button>
+
+  </form>
+</div>

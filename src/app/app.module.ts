@@ -23,6 +23,11 @@ import { AdminComponent } from './admin/admin.component';
 import { PlayerFormComponent } from './player-form/player-form.component';
 import { GameFormComponent } from './game-form/game-form.component';
 import { TeamFormComponent } from './team-form/team-form.component';
+import { BattingStatsFormComponent } from './batting-stats-form/batting-stats-form.component';
+import { SeasonFormComponent } from './season-form/season-form.component';
+import { PitchingStatsFormComponent } from './pitching-stats-form/pitching-stats-form.component';
+import { UpdatePlayerFormComponent } from './update-player-form/update-player-form.component';
+import { UpdateTeamFormComponent } from './update-team-form/update-team-form.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +43,11 @@ import { TeamFormComponent } from './team-form/team-form.component';
     PlayerFormComponent,
     GameFormComponent,
     TeamFormComponent,
+    BattingStatsFormComponent,
+    SeasonFormComponent,
+    PitchingStatsFormComponent,
+    UpdatePlayerFormComponent,
+    UpdateTeamFormComponent,
     
     
   ],

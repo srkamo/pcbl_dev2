@@ -1,0 +1,80 @@
+<div class="container chart">
+  <h1>Pitching Stats Form</h1>
+  <form [formGroup]="pitchingStatForm" (ngSubmit)="onSubmit(pitchingStatForm.value)"  >
+    
+    <div class="form-group">
+      <label for="name">Player</label>
+      <select class="form-control" formControlName="player" required>
+        <option *ngFor="let player of players" [value]="player">{{player}}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="name">Game</label>
+      <select class="form-control" formControlName="game" required>
+        <option *ngFor="let game of games" [value]="game">{{game}}</option>
+      </select>
+    </div>
+    
+    <div >
+      <label for="name">Innings</label>
+      <input type="text" class="form-control" formControlName="innings" required>
+    </div>
+
+    <div class="form-group">
+      <label for="name">Earned Runs</label>
+      <input type="text" class="form-control"  formControlName="earnedRuns" required>
+    </div>
+
+    <div class="form-group">
+      <label for="name">Total Runs</label>
+      <input type="text" class="form-control" formControlName="totalRuns" required>
+    </div>
+
+    <div class="form-group">
+      <label for="name">Strikeouts</label>
+      <input type="text" class="form-control" formControlName="strikeouts" required>
+    </div>
+
+    <div class="form-group">
+      <label for="bat">Walks</label>
+      <input type="text" class="form-control" formControlName="walks" required>
+    </div>
+
+    <div class="form-group">
+      <label for="bat">Hits</label>
+      <input type="text" class="form-control" formControlName="hits" required>
+    </div>
+
+    <div class="form-group">
+      <label for="bat">Hit By Pitch</label>
+      <input type="text" class="form-control" formControlName="hitByPitch" required>
+    </div>
+
+    <div class="form-group">
+      <label for="bat">Wild Pitches</label>
+      <input type="text" class="form-control" formControlName="wildPitches" required>
+    </div>
+
+    <div class="form-group">
+      <label for="bat">Stolen Bases</label>
+      <input type="text" class="form-control" formControlName="stolenBases" required>
+    </div>
+
+    <div class="form-group">
+      <label for="bat">Pick Offs</label>
+      <input type="text" class="form-control" formControlName="pickOffs" required>
+    </div>
+
+    <div class="form-group">
+      <label for="name">Result</label>
+      <select class="form-control" formControlName="result" required>
+        <option *ngFor="let result of results" [value]="result">{{result}}</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-success">Submit</button>
+
+  </form>
+</div>
+

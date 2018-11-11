@@ -1,0 +1,92 @@
+<div class="container chart">
+  <h1>Batting Stats Form</h1>
+  <form [formGroup]="battingStatForm" (ngSubmit)="onSubmit(battingStatForm.value)"  >
+    
+    <div class="form-group">
+      <label for="name">Player</label>
+      <select class="form-control" formControlName="player" required>
+        <option *ngFor="let player of players" [value]="player">{{player}}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="name">Game</label>
+      <select class="form-control" formControlName="game" required>
+        <option *ngFor="let game of games" [value]="game">{{game}}</option>
+      </select>
+    </div>
+    
+    <div >
+      <label for="name">At Bats</label>
+      <input type="text" class="form-control" formControlName="atBats" required>
+    </div>
+
+    <div class="form-group">
+      <label for="name">Singles</label>
+      <input type="text" class="form-control"  formControlName="singles" required>
+    </div>
+
+    <div class="form-group">
+      <label for="name">Doubles</label>
+      <input type="text" class="form-control" formControlName="doubles" required>
+    </div>
+
+    <div class="form-group">
+      <label for="name">Triples</label>
+      <input type="text" class="form-control" formControlName="triples" required>
+    </div>
+
+    <div class="form-group">
+      <label for="bat">Home Runs</label>
+      <input type="text" class="form-control" formControlName="homeRuns" required>
+    </div>
+
+    <div class="form-group">
+      <label for="bat">Walks</label>
+      <input type="text" class="form-control" formControlName="walks" required>
+    </div>
+
+    <div class="form-group">
+      <label for="bat">Hit By Pitch</label>
+      <input type="text" class="form-control" formControlName="hitByPitch" required>
+    </div>
+
+    <div class="form-group">
+      <label for="bat">Runs</label>
+      <input type="text" class="form-control" formControlName="runs" required>
+    </div>
+
+    <div class="form-group">
+      <label for="bat">RBIs</label>
+      <input type="text" class="form-control" formControlName="rbis" required>
+    </div>
+
+    <div class="form-group">
+      <label for="bat">Strikeouts</label>
+      <input type="text" class="form-control" formControlName="strikeouts" required>
+    </div>
+
+    <div class="form-group">
+      <label for="bat">Sacrifices</label>
+      <input type="text" class="form-control" formControlName="sacrifices" required>
+    </div>
+
+    <div class="form-group">
+      <label for="bat">Stolen Bases</label>
+      <input type="text" class="form-control" formControlName="stolenBases" required>
+    </div>
+
+    <div class="form-group">
+      <label for="bat">Caught Stealing</label>
+      <input type="text" class="form-control" formControlName="caughtStealing" required>
+    </div>
+
+    <div class="form-group">
+      <label for="bat">Passed Balls</label>
+      <input type="text" class="form-control" formControlName="passedBalls" required>
+    </div>
+
+    <button type="submit" class="btn btn-success">Submit</button>
+
+  </form>
+</div>
