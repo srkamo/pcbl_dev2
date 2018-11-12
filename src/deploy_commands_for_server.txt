@@ -1,6 +1,6 @@
 git pull into pcbl_dev2
 copy folder into /var/royals/angular/
-    $cp -r pcbl_dev2 /var/royals/angular/
+    $sudo cp -r pcbl_dev2 /var/royals/angular/
 go to that folder
     $cd /var/royals/angular/
 delete the current ng6 
@@ -10,6 +10,6 @@ rename the pcbl_dev2 folder to ng6
 $cd ng6
 run 
     $sudo npm install --unsafe-perm
-    $ng build
+    $sudo ng build
 if successful then do 
     $sudo service royals-front restart
