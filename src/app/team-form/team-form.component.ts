@@ -17,12 +17,22 @@ export class TeamFormComponent implements OnInit {
   });
 
   team;
-
+  seasons;
   constructor(private data : DataService) { }
 
   ngOnInit() {
+    this.data.getAllSeasons().subscribe(
+      data => {
+        this.seasons = data;
+      }
+    );
   }
 
+
+  selectedSeason(seasonId){
+    console.log("seasonId: " + seasonId);
+  }
+  
   onSubmit(form){
     this.team = new Team(form.teamName);
     console.log(this.team);

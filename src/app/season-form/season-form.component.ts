@@ -18,14 +18,25 @@ export class SeasonFormComponent implements OnInit {
   });
 
   season;
+  seasons;
 
-  constructor() { }
+  constructor(private data : DataService) { }
 
   ngOnInit() {
+    this.data.getAllSeasons().subscribe(
+      data => {
+        this.seasons = data;
+      }
+    );
+  }
+
+  selectedSeason(seasonId){
+    console.log("seasonId: " + seasonId);
   }
 
   onSubmit(form){
     this.season = new Season(form.season, form.year, form.division);
+    this.data.addSeason(this.season).subscribe();
     console.log(this.season);
   }
 

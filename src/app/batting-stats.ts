@@ -18,3 +18,27 @@ export class BattingStats {
         public passedBalls: string,
     ){};
 }
+
+/* Batting Stat:
+{
+    "game":{
+        "id":1
+    },
+    "player":{
+        "id":1
+    },
+    "atBats": 5,
+    "singles": 1,
+    "doubles": 1,
+    "triples": 1,
+    "homeRuns": 1,
+    "walks": 0,
+    "hitByPitch": 100000,
+    "sacrifices": 0,
+    "runs": 0,
+    "rbis": 0,
+    "stolenBases": 0,
+    "passedBalls": 0,
+    "caughtStealing": 0,
+    "strikeOuts": 5
+} */

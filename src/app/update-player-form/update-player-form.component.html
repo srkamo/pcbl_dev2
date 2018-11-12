@@ -2,9 +2,15 @@
   <form [formGroup]="updatePlayerForm" (ngSubmit)="onSubmit(updatePlayerForm.value)">
     <h1>Player</h1>
     
+    <mat-form-field>
+      <mat-select [(value)]="selSeason" (selectionChange)="selectedSeason(selSeason.id)" placeholder="Season Select">
+        <mat-option *ngFor="let season of seasons" [value]="season">{{season.season}} {{season.year}} </mat-option>
+      </mat-select>
+    </mat-form-field>
+
     <div>
     <select multiple="multiple" class="form-control" formControlName="players">
-      <option *ngFor="let player of players" [value]="player">{{player}}</option>
+      <option *ngFor="let player of players" [value]="player">{{player.displayName}}</option>
     </select>
   </div>
 

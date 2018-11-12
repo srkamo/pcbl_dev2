@@ -5,3 +5,10 @@ export class Season {
         public division: string,
     ){};
 }
+
+/*New Season:
+{
+    "season": "Winter",
+    "year": 1990,
+    "division": "test"
+} */

@@ -11,9 +11,15 @@ import { DataService } from '../data.service';
 })
 export class BattingStatsFormComponent implements OnInit {
 
-  players = ['Miller, Mike', 'Asmus, Jeff', 'Baer, Alex'];
-  games = ['vs. Raptors(Warriors) (11/03/18 14:00)', 'at Raptors(Warriors) (11/03/18 10:00)'
-    , 'at Lookouts (10/28/18 14:00)'];
+  players; //= ['Miller, Mike', 'Asmus, Jeff', 'Baer, Alex'];
+  // games = ['vs. Raptors(Warriors) (11/03/18 14:00)', 
+  // 'at Raptors(Warriors) (11/03/18 10:00)', 
+  // 'at Lookouts (10/28/18 14:00)'];
+  games;
+  seasons;
+
+  gameId = -1;
+  playerId = -1;
 
   battingStatForm = new FormGroup({
     player: new FormControl(),
@@ -38,15 +44,75 @@ export class BattingStatsFormComponent implements OnInit {
   constructor(private data: DataService) { }
 
   ngOnInit() {
+    this.data.getAllSeasons().subscribe(
+      data => {
+        this.seasons = data;
+      }
+    );
   }
 
+  selectedSeason(seasonId){
+    this.data.getGamesBySeason(seasonId).subscribe(
+      data => {
+       this.games = data;
+      }
+    );
+
+    this.data.getAllPlayersForSeason(seasonId).subscribe(
+      data => {
+        this.players = data;
+      }
+    );
+    console.log("seasonId: " + seasonId);
+  }
+
+  playerSelect(id){
+    this.playerId = id;
+  }
+
+  gameSelect(id){
+    this.gameId = id;
+  }
+
+
+  /*
+   Batting Stat:
+{
+    "game":{
+        "id":1
+    },
+    "player":{
+        "id":1
+    },
+    "atBats": 5,
+    "singles": 1,
+    "doubles": 1,
+    "triples": 1,
+    "homeRuns": 1,
+    "walks": 0,
+    "hitByPitch": 100000,
+    "sacrifices": 0,
+    "runs": 0,
+    "rbis": 0,
+    "stolenBases": 0,
+    "passedBalls": 0,
+    "caughtStealing": 0,
+    "strikeOuts": 5
+}
+  */
+
   battingStat;
+  player;
+  game;
   onSubmit(form){
-    this.battingStat = new BattingStats(form.player, form.game, form.atBats,
+    this.player = {"id": form.player.id};
+    this.game = {"id": form.game.id}; 
+    this.battingStat = new BattingStats(this.player,this.game , form.atBats,
       form.singles, form.doubles, form.triples, form.homeRuns, form.walks, form.hitByPitch,
       form.runs, form.rbis, form.strikeouts, form.sacrifices, form.stolenBases, form.caughtStealing
       ,form.passedBalls); 
 
+      this.data.addBattingStat(this.battingStat).subscribe();
       console.log(this.battingStat);
   }
 

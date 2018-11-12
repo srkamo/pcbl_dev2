@@ -10,18 +10,58 @@ import { formatCurrency } from '@angular/common';
 })
 export class UpdatePlayerFormComponent implements OnInit {
 
-  players = ['Miller, Mike', 'Asmus, Jeff', 'Baer, Alex'];
-  constructor() { }
+  players;// = ['Miller, Mike', 'Asmus, Jeff', 'Baer, Alex'];
+  seasons;
+  constructor(private data : DataService) { }
 
   ngOnInit() {
+
+    this.data.getAllSeasons().subscribe(
+      data => {
+        this.seasons = data;
+      }
+    );
+
+    this.data.getAllPlayers().subscribe(
+      data => {
+        this.players = data;
+        
+      }
+    );
+
+  }
+
+  season_id;
+  selectedSeason(seasonId){
+    this.season_id = seasonId;
+    
+    console.log("seasonId: " + seasonId);
   }
 
   updatePlayerForm = new FormGroup({
     players: new FormControl(), 
   });
 
+  /*
+  Update Players for Season:
+{
+    "season_id": 999,
+    "player_ids": [901,902,904]
+}
+   */
+  updatePlayers;
+  player_ids = new Array();
   onSubmit(form){
-    console.log(form);
+    
+    for(let p of form.players){
+      this.player_ids.push(p.id);
+    }
+    
+    this.updatePlayers = {"season_id": this.season_id, "player_ids": this.player_ids};
+    this.data.updateSeasonPlayer(this.updatePlayers).subscribe();
+    console.log(this.updatePlayers);
   }
+
+ 
 
 }

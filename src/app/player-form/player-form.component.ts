@@ -15,7 +15,7 @@ export class PlayerFormComponent implements OnInit {
   bats = ['Right', 'Left', 'Switch'];
   throws = ['Right', 'Left', 'Both'];
 
-
+  seasons;
   model = new Player("First", "Last", 42, "Positin", this.bats[0], this.throws[1]);
 
   submitted = false;
@@ -37,14 +37,34 @@ export class PlayerFormComponent implements OnInit {
   constructor(private data: DataService) { }
 
   ngOnInit() {
+    this.data.getAllSeasons().subscribe(
+      data => {
+        this.seasons = data;
+      }
+    );
   }
 
+  /*
+  New Player:
+{
+    "firstName": "Temp",
+    "lastName": "Test",
+    "jerseyNumber": 96,
+    "positions": "pitcher",
+    "throwSide": "left",
+    "batSide": "left"
+}
+   */
+
   onSubmit(form){
-    this.player = {"firstName":form.firstName,"lastName":form.lastName,
-    "jerseyNumber":form.jersey,"positions":form.positions,"throwSide":form.throws,"batSide":form.bats,"fullNameLastFirst":form.firstName + ", " + form.lastName};
+    this.player = new Player(form.firstName, form.lastName, form.jersey, form.positions, form.throws, form.bats);
     this.data.addPlayer(this.player).subscribe()
     this.submitted = true;
     this.playerForm.reset();
+  }
+
+  selectedSeason(seasonId){
+    console.log("seasonId: " + seasonId);
   }
 
 }

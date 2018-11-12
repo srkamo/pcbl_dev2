@@ -1,5 +1,10 @@
 export class Team {
     constructor(
-        public teamName: string
+        public name: string
     ){};
 }
+
+/* New Team:
+{
+    "name": "Test Test"
+} */

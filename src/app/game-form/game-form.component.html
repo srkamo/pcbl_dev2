@@ -1,6 +1,13 @@
 <div class="container chart">
   <h1>Game Form</h1>
   <form [formGroup]="gameForm" (ngSubmit)="onSubmit(gameForm.value)"  >
+  
+    <mat-form-field>
+      <mat-select [(value)]="selSeason" (selectionChange)="selectedSeason(selSeason.id)" placeholder="Season Select">
+        <mat-option *ngFor="let season of seasons" [value]="season">{{season.season}} {{season.year}} </mat-option>
+      </mat-select>
+    </mat-form-field>
+
     <div >
       <label for="name">Date</label>
       <input type="text" class="form-control" name="month" formControlName="month" required>
@@ -14,8 +21,8 @@
     </div>
 
     <div class="form-group">
-      <label for="name">Opponent</label>
-      <input type="text" class="form-control" id="opponent" formControlName="opponent" required>
+      <label for="name">Opponent Score</label>  
+      <input type="text" class="form-control" id="opponent" formControlName="opponentScore" required>
     </div>
 
     <div class="form-group">
@@ -25,9 +32,9 @@
 
     <div class="form-group">
       <label for="name">Opponent</label>
-      <select class="form-control" id="opponentScore" formControlName="opponentScore" required>
-        <option *ngFor="let opponent of opponents" [value]="throw">{{opponent}}</option>
-      </select>
+      <mat-select class="form-control" id="opponentScore" formControlName="opponent"  required>
+        <mat-option *ngFor="let team of teams" [value]="team">{{team.name}}</mat-option>
+      </mat-select>
     </div>
 
     <div class="form-group">
