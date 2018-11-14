@@ -4,7 +4,7 @@ copy folder into /var/royals/angular/
 go to that folder
     $cd /var/royals/angular/
 delete the current ng6 
-    $sudo rm -rf n6
+    $sudo rm -rf ng6
 rename the pcbl_dev2 folder to ng6
     $sudo mv pcbl_dev2 ng6
 $cd ng6

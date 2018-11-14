@@ -37,11 +37,11 @@ export class PlayerFormComponent implements OnInit {
   constructor(private data: DataService) { }
 
   ngOnInit() {
-    this.data.getAllSeasons().subscribe(
-      data => {
-        this.seasons = data;
-      }
-    );
+    // this.data.getAllSeasons().subscribe(
+    //   data => {
+    //     this.seasons = data;
+    //   }
+    // );
   }
 
   /*
