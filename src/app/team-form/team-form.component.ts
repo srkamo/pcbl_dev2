@@ -35,7 +35,8 @@ export class TeamFormComponent implements OnInit {
   
   onSubmit(form){
     this.team = new Team(form.teamName);
-    console.log(this.team);
+
+    this.data.addTeam(this.team).subscribe();
   }
 
 }

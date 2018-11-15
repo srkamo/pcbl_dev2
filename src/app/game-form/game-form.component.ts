@@ -69,9 +69,9 @@ export class GameFormComponent implements OnInit {
 
   
   gameSeason;
-  
+  season;
   onSubmit(form){
-    this.date =  form.year + "-" + form.month + "-" + form.day ;
+    this.date =  form.year + "-" + form.month + "-" + form.day + "T20:00:00Z" ;
     if(!form.home)
       form.home = 0;
     else
@@ -83,9 +83,10 @@ export class GameFormComponent implements OnInit {
 
 
     this.gameSeason = {id: this.season_id};
+  
     this.opponent_id = {id: form.opponent.id}
-    this.game = new Game( this.date, form.start, this.gameSeason, this.season_id, this.opponent_id, form.teamScore, form.opponentScore, form.location, form.home, form.playoff); 
-    
+    //.game = new Game( //.date, form.start, this.gameSeason, this this.opponent_id, form.teamScore, form.opponentScore, form.location, form.home, form.playoff); 
+    this.game = new Game(this.date, form.start, this.gameSeason, this.opponent_id, form.teamScore, form.opponentScore, form.location, form.home, form.playoff);
     this.data.addGame(this.game).subscribe();
 
     console.log(this.game);

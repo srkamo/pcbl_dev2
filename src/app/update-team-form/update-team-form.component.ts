@@ -60,7 +60,8 @@ export class UpdateTeamFormComponent implements OnInit {
       this.teams_ids.push(t.id);
     }
     this.updateTeams = {"season_id": this.season_id, "team_ids": this.teams_ids};
-    this.data.updateSeasonTeam(this.teams).subscribe();
+    this.data.updateSeasonTeam(this.updateTeams).subscribe();
+    this.teams_ids = new Array();
     console.log(this.updateTeams);
   }
 

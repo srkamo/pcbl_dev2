@@ -5,7 +5,7 @@
     <li>
       <mat-form-field>
         <mat-select [(value)]="selectedPlayerAll" (selectionChange)="callBackAllSeasonByPlayer(selectedPlayerAll)" placeholder="Select Player">
-          <mat-option *ngFor="let player_ of playersDrop_" [value]="player_"> {{player_.fullNameLastFirst}} </mat-option>
+          <mat-option *ngFor="let player_ of playersDrop_" [value]="player_"> {{player_.displayName}} </mat-option>
         </mat-select>
       </mat-form-field>
     </li>
@@ -16,7 +16,7 @@
   <li>
     <mat-form-field>
       <mat-select [(value)]="selectedPlayer" (selectionChange)="callBackSeasonByPlayer(selectedPlayer)" placeholder="Select Player">
-        <mat-option *ngFor="let player of playersDrop" [value]="player"> {{player.fullNameLastFirst}} </mat-option>
+        <mat-option *ngFor="let player of playersDrop" [value]="player"> {{player.displayName}} </mat-option>
       </mat-select>
     </mat-form-field>
   </li>
