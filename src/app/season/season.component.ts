@@ -3,6 +3,7 @@ import { DataService } from '../data.service';
 import { merge, Observable, of as observableOf } from 'rxjs';
 import { trigger, style, transition, animate, keyframes, query, stagger } from '@angular/animations';
 import { MatPaginator, MatSort, MatTableDataSource, MatOption } from '@angular/material';
+import {Router, ActivatedRoute, Params} from '@angular/router';//edited for links
 
 @Component({
   selector: 'app-season',
@@ -14,6 +15,7 @@ export class SeasonComponent implements OnInit {
   batting;
   pitching;
   dropDown;
+  seasonId;
 
   pitchingAllTime;
   battingAllTime;
@@ -26,12 +28,19 @@ export class SeasonComponent implements OnInit {
   @ViewChild('battingTableSort') public battingTableSort: MatSort;
   @ViewChild('pitchingTableSort') public pitchingTableSort: MatSort;
 
-  constructor(private data: DataService) { }
+  constructor(private data: DataService, private activatedRoute: ActivatedRoute) { } //edited for links
 
 
   ngOnInit() {
 
-    this.data.getStatsBySeason(1).subscribe(
+    //edited for links
+    this.activatedRoute.queryParams.subscribe(params => {
+        this.seasonId = params['seasonId'];
+      });
+
+
+    if(this.seasonId>0){
+      this.data.getStatsBySeason(this.seasonId).subscribe(
       data => {
         this.dropDown = data['seasonsDropdown'];
         this.batting = new MatTableDataSource(data['playerBatting']);
@@ -43,7 +52,25 @@ export class SeasonComponent implements OnInit {
         
       }
     );
-    
+
+    }
+    else{
+      this.id = 1;
+      this.data.getStatsBySeason(this.id).subscribe(
+      data => {
+        this.dropDown = data['seasonsDropdown'];
+        this.batting = new MatTableDataSource(data['playerBatting']);
+        this.batting.sort = this.battingTableSort;
+        this.pitching = new MatTableDataSource(data['playerPitching']);
+        this.pitching.sort = this.pitchingTableSort;
+        this.pitchingAllTime = data['seasonPitching'][0];
+        this.battingAllTime = data['totalBatting'][0];
+        
+        }
+      );
+
+    }
+    //end of editted for links   
     
   }
 
