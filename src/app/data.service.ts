@@ -96,54 +96,56 @@ export class DataService {
   }
 
   addPlayer(player){
-    //return this.http.post('http://qa.pcblroyals.com:8888/api/createPlayer', player);
-    console.log(player);
-    return this.http.put('http://localhost.com:8888/api/createPlayer/', player);
+    return this.http.post('http://qa.pcblroyals.com:8888/api/createPlayer', player);
+    // console.log(player);
+    // return this.http.post('http://localhost:8888/api/createPlayer/', player);
   }
 
   addGame(game){
-    // return this.http.post('http://qa.pcblroyals.com:8888/api/createGame/', game);
-    return this.http.post('http://localhost.com:8888/api/createGame/', game);
+    return this.http.post('http://qa.pcblroyals.com:8888/api/createGame/', game);
+    // console.log(game);
+    // return this.http.post('http://localhost:8888/api/createGame/', game);
   }
 
   addSeason(season){
-    // return this.http.post('http://qa.pcblroyals.com:8888/api/createSeason/', season);
-    return this.http.post('https://localhost.com:8888/api/createSeason/', season);
+    return this.http.post('http://qa.pcblroyals.com:8888/api/createSeason/', season);
+    // return this.http.post('http://localhost:8888/api/createSeason/', season);
   }
 
   addTeam(team){
-    //return this.http.post('http://qa.pcblroyals.com:8888/api/createTeam/', team);
-    return this.http.post('http://localhost.com:8888/api/createTeam/', team);
+    return this.http.post('http://qa.pcblroyals.com:8888/api/createTeam/', team);
+    // console.log(team);
+    // return this.http.post('http://localhost:8888/api/createTeam/', team);
   }
 
   addBattingStat(stat){
-    //return this.http.post('http://qa.pcblroyals.com:8888/api/createBattingStat/', stat);
-    return this.http.post('http://localhost.com:8888/api/createBattingStat/', stat);
+    return this.http.post('http://qa.pcblroyals.com:8888/api/createBattingStat/', stat);
+    // return this.http.post('http://localhost:8888/api/createBattingStat/', stat);
   }
 
   addPitchingStat(stat){
-    //return this.http.post('http://qa.pcblroyals.com:8888/api/createPitchingStat/', stat);
-    return this.http.post('http://localhost.com:8888/api/createPitchingStat/', stat);
+    return this.http.post('http://qa.pcblroyals.com:8888/api/createPitchingStat/', stat);
+    // return this.http.post('http://localhost:8888/api/createPitchingStat/', stat);
   }
 
   updateSeasonPlayer(players){
-    //return this.http.post('http://qa.pcblroyals.com:8888/api/updateSeasonPlayer/', players);
-    return this.http.post('http://localhost.com:8888/api/updateSeasonPlayer/', players);
+    return this.http.post('http://qa.pcblroyals.com:8888/api/updateSeasonPlayer/', players);
+    // return this.http.post('http://localhost:8888/api/updateSeasonPlayer/', players);
   }
 
   updateSeasonTeam(teams){
-    //return this.http.post('http://qa.pcblroyals.com:8888/api/updateSeasonTeam/', teams);
-    return this.http.post('http://localhost.com:8888/api/updateSeasonTeam/', teams);
+    return this.http.post('http://qa.pcblroyals.com:8888/api/updateSeasonTeam/', teams);
+    // return this.http.post('http://localhost:8888/api/updateSeasonTeam/', teams);
   }
 
   getAllPlayersForSeason(seasonId){
-   // return this.http.get('http://qa.pcblroyals.com:8888/api/getAllPlayersForSeason/'+ seasonId);
-    return this.http.get('http://localhost.com:8888/api/getAllPlayersForSeason/'+ seasonId);
+   return this.http.get('http://qa.pcblroyals.com:8888/api/getAllPlayersForSeason/'+ seasonId);
+    // return this.http.get('http://localhost:8888/api/getAllPlayersForSeason/'+ seasonId);
   }
 
   getAllTeams(){
-    //return this.http.get('http://qa.pcblroyals.com:8888/api/getAllTeams/');
-    return this.http.get('http://localhost.com:8888/api/getAllTeams/');
+    return this.http.get('http://qa.pcblroyals.com:8888/api/getAllTeams/');
+    // return this.http.get('http://localhost:8888/api/getAllTeams/');
   }
 
   
