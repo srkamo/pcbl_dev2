@@ -11,7 +11,7 @@
       <ng-container matColumnDef="season">
         <th mat-header-cell *matHeaderCellDef> Season </th> 
         <!-- edited for links -->
-        <td mat-cell *matCellDef="let element"><a href="/season?seasonId={{element.id}}"> {{element.season}} {{element.year}}</a> </td>
+        <td mat-cell *matCellDef="let element"><a class="table-link" href="/season?seasonId={{element.id}}"> {{element.season}} {{element.year}}</a> </td>
         <td mat-footer-cell *matFooterCellDef> All Time </td>
       </ng-container>
 

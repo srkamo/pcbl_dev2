@@ -33,22 +33,22 @@
 </ul>
 
 <form  [hidden] = allTime>
-  <input type="radio" (click)="isOn= false; checked = true" name="chart" checked="true" id="battingButton" > Batting
-  <input type="radio" (click)="isOn= true; checked = true" name="chart" id="battingButton"> Pitching
+  <input type="radio" (click)="isOn= false; checked = true" name="chart" checked="true" id="battingButton1" > Batting
+  <input type="radio" (click)="isOn= true; checked = true" name="chart" id="pitchingButton1"> Pitching
 </form> 
 
 <form  [hidden] = !allTime>
-    <input type="radio" (click)="isOn_= false; checked = true" name="chart" checked="true" id="battingButton" > Batting
-    <input type="radio" (click)="isOn_= true; checked = true" name="chart" id="battingButton"> Pitching
+    <input type="radio" (click)="isOn_= false; checked = true" name="chart" checked="true" id="battingButton2" > Batting
+    <input type="radio" (click)="isOn_= true; checked = true" name="chart" id="pitchingButton2"> Pitching
   </form> 
 
 <form  >
-  <input type="radio" (click)="allTime= true; checked = true; currPlayer = null" name="chart"  > All Time
-  <input type="radio" (click)="allTime= false; checked = true; currPlayer = null" name="chart" checked="true" > Season
+  <input type="radio" (click)="allTime= true; checked = true; currPlayer = null" name="chart" id="allTimeButton" > All Time
+  <input type="radio" (click)="allTime= false; checked = true; currPlayer = null" name="chart" id="seasonButton" checked="true" > Season
 </form> 
 
 <ul [hidden] = "!currPlayer" class="playerDesc"><li>
-  <strong>{{currPlayer?.fullNameLastFirst}}</strong> <br> 
+  <strong>{{currPlayer?.displayName}}</strong> <br> 
   <strong>Jersey Number: </strong>  {{currPlayer?.jerseyNumber}} <br>
   <strong>Position: </strong>  {{currPlayer?.positions}}  <br>
   <strong>Throw Side: </strong>  {{currPlayer?.throwSide}} <br>

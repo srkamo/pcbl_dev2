@@ -3,6 +3,7 @@ import { DataService } from '../data.service';
 import { merge, Observable, of as observableOf } from 'rxjs';
 import { trigger, style, transition, animate, keyframes, query, stagger } from '@angular/animations';
 import { MatPaginator, MatSort, MatTableDataSource, MatOption } from '@angular/material';
+import {Router, ActivatedRoute, Params} from '@angular/router';//edited for links
 
 @Component({
   selector: 'app-player',
@@ -11,10 +12,7 @@ import { MatPaginator, MatSort, MatTableDataSource, MatOption } from '@angular/m
 })
 export class PlayerComponent implements OnInit {
 
-  constructor(private data: DataService) { }
-
-  playerId = 1;
-  seasonId = 1;
+  constructor(private data: DataService, private activatedRoute: ActivatedRoute) { } //edited for links
 
   playersDrop;
   playersDrop_;
@@ -22,7 +20,20 @@ export class PlayerComponent implements OnInit {
   playerAllPitch;
 
   currPlayer;
+  playerId;
+  seasonId;
+  seasonView;
+  battingView;
+  isOn;
+  isOn_;
+  allTime;
 
+  battingButton1;
+  pitchingButton1;
+  battingButton2;
+  pitchingButton2;
+  allTimeButton;
+  seasonButton;
 
   seasonsDrop;
   battingStats;
@@ -44,11 +55,110 @@ export class PlayerComponent implements OnInit {
 
   ngOnInit() {
 
+    this.activatedRoute.queryParams.subscribe(params => {
+        this.seasonId = params['seasonId'];
+        this.playerId = params['playerId'];
+        this.seasonView = params['seasonView'];
+        this.battingView = params['battingView'];        
+      });
+
     this.data.getAllPlayers().subscribe(
       data=>{
         this.playersDrop = data;
         this.playersDrop_ = data;
         
+      }
+    );
+
+    //setting the seasonId
+    if(this.seasonId == null){
+      this.seasonId = 1;
+    }
+
+    //setting the playerId
+    if(this.playerId == null){
+      this.playerId = 1;
+    }
+
+    //setting batting/pitching
+    this.allTimeButton = document.getElementById('allTimeButton');
+    this.seasonButton = document.getElementById('seasonButton');
+    if(this.seasonView == 1){
+      this.allTime = false;
+
+      this.allTimeButton.checked = false;
+      this.seasonButton.checked = true;
+    }
+    else if(this.seasonView == 0){
+      this.allTime = true;
+
+      this.allTimeButton.checked = true;
+      this.seasonButton.checked = false;
+    }
+    else{
+      this.allTime = false;
+
+      this.allTimeButton.checked = false;
+      this.seasonButton.checked = true;
+    }
+
+    //setting batting/pitching
+    this.battingButton1 = document.getElementById('battingButton1');
+    this.pitchingButton1 = document.getElementById('pitchingButton1');
+    this.battingButton2 = document.getElementById('battingButton2');
+    this.pitchingButton2 = document.getElementById('pitchingButton2');
+    if(this.battingView == 1){
+      this.isOn = false;
+      this.isOn_ = false;
+
+      this.battingButton1.checked = true;
+      this.pitchingButton1.checked = false;
+      this.battingButton2.checked = true;
+      this.pitchingButton2.checked = false;
+    }
+    else if(this.battingView == 0){
+      this.isOn = true;
+      this.isOn_ = true;
+
+      this.battingButton1.checked = false;
+      this.pitchingButton1.checked = true;
+      this.battingButton2.checked = false;
+      this.pitchingButton2.checked = true;
+    }
+    else{
+      this.isOn = false;
+      this.isOn_ = false;
+
+      this.battingButton1.checked = true;
+      this.pitchingButton1.checked = false;
+      this.battingButton2.checked = true;
+      this.pitchingButton2.checked = false;
+    }
+
+
+    this.data.getStatsGameBySeasonPlayer(this.seasonId, this.playerId).subscribe(
+      data => {
+        this.battingStats = new MatTableDataSource(data['gameBatting']);
+        this.battingStats.sort = this.battingTableSort;
+        this.pitchingStats = new MatTableDataSource(data['gamePitching']);
+        this.pitchingStats.sort = this.pitchingTableSort;
+        
+      }
+    );
+
+    this.data.getStatsSeasonByPlayer(this.playerId).subscribe(
+      data => {
+        this.battingStats_ = new MatTableDataSource(data['seasonBatting']);
+        this.battingStats_.sort = this.battingTableSort_;
+        this.pitchingStats_ = new MatTableDataSource(data['seasonPitching']);
+        this.pitchingStats_.sort = this.pitchingTableSort_;
+        
+      }
+    );
+
+    this.data.getPlayerInfo(this.playerId).subscribe(
+      data => {
+        this.currPlayer = data;
       }
     );
 

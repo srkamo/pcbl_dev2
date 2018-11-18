@@ -15,7 +15,7 @@ export class SeasonComponent implements OnInit {
   batting;
   pitching;
   dropDown;
-  seasonId;
+  seasonId; //edited for links
 
   pitchingAllTime;
   battingAllTime;
@@ -39,24 +39,10 @@ export class SeasonComponent implements OnInit {
       });
 
 
-    if(this.seasonId>0){
-      this.data.getStatsBySeason(this.seasonId).subscribe(
-      data => {
-        this.dropDown = data['seasonsDropdown'];
-        this.batting = new MatTableDataSource(data['playerBatting']);
-        this.batting.sort = this.battingTableSort;
-        this.pitching = new MatTableDataSource(data['playerPitching']);
-        this.pitching.sort = this.pitchingTableSort;
-        this.pitchingAllTime = data['seasonPitching'][0];
-        this.battingAllTime = data['totalBatting'][0];
-        
-      }
-    );
-
+    if(this.seasonId == null){
+      this.seasonId = 1;
     }
-    else{
-      this.id = 1;
-      this.data.getStatsBySeason(this.id).subscribe(
+    this.data.getStatsBySeason(this.seasonId).subscribe(
       data => {
         this.dropDown = data['seasonsDropdown'];
         this.batting = new MatTableDataSource(data['playerBatting']);
@@ -68,14 +54,12 @@ export class SeasonComponent implements OnInit {
         
         }
       );
-
-    }
     //end of editted for links   
     
   }
 
   callBack(id) {
-    
+    this.seasonId = id;
     this.data.getStatsBySeason(id).subscribe(
       data => {
         this.batting = new MatTableDataSource(data['playerBatting']);

@@ -50,6 +50,9 @@ export class DataService {
     return this.http.get('http://localhost:8888/api/getStatsGameBySeasonPlayer/'+seasonId + '/' + playerId)
   }
 
+  getPlayerInfo(playerId){
+    return this.http.get('http://localhost:8888/api/viewSinglePlayer/'+playerId)
+  }
 
   getAllSeasons(){
     return this.http.get('http://localhost:8888/api/viewAllSeasons')
