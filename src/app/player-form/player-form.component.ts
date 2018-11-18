@@ -60,8 +60,14 @@ export class PlayerFormComponent implements OnInit {
    */
 
   onSubmit(form){
+    if(Number.isInteger( parseInt( form.jersey))){
+      console.log("jersey number is integer")
+    }
+    else{
+      console.log("jersey number is not an integer");
+    }
     this.player = new Player(form.firstName, form.lastName, form.jersey, form.positions, form.throws, form.bats);
-    this.data.addPlayer(this.player).subscribe()
+    //this.data.addPlayer(this.player).subscribe()
     this.submitted = true;
     this.playerForm.reset();
     this.successHidden = false;

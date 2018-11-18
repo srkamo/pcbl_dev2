@@ -118,6 +118,7 @@ export class BattingStatsFormComponent implements OnInit {
       this.data.addBattingStat(this.battingStat).subscribe();
       console.log(this.battingStat);
       this.battingStatForm.reset();
+      //floats avg, obp, slg
   }
 
 }

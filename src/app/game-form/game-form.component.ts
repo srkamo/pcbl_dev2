@@ -3,6 +3,8 @@ import { Game } from '../game'
 import { FormGroup, FormControl } from '@angular/forms';
 import { DataService } from '../data.service';
 import { Season } from '../season';
+import { parse } from 'path';
+import { elementStyleProp } from '@angular/core/src/render3/instructions';
 
 @Component({
   selector: 'app-game-form',
@@ -83,16 +85,34 @@ export class GameFormComponent implements OnInit {
     else
       form.playoff = 1;
 
+    
+    if(form.opponentScore.indexOf('.0') >= 0){
+      console.log("has .0");
+    }
+    else{
+      console.log("no .0");
+    }
 
+    if(Number.isInteger (parseFloat(form.opponentScore))){
+      console.log("is integer");
+    }
+    else{
+      console.log("not a integer");
+    }
+
+    
+    
     this.gameSeason = {id: this.season_id};
+    console.log("Start Time: " + form.start);
   
     this.opponent_id = {id: form.opponent.id}
     //.game = new Game( //.date, form.start, this.gameSeason, this this.opponent_id, form.teamScore, form.opponentScore, form.location, form.home, form.playoff); 
     this.game = new Game(form.date + "T20:00:00Z", form.start, this.gameSeason, this.opponent_id, form.teamScore, form.opponentScore, form.location, form.home, form.playoff);
-    this.data.addGame(this.game).subscribe();
+    //this.data.addGame(this.game).subscribe();
     this.gameForm.reset();
 
     //console.log(this.game);
+    
   }
 
 }
