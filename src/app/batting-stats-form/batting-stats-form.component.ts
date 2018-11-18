@@ -21,6 +21,9 @@ export class BattingStatsFormComponent implements OnInit {
   gameId = -1;
   playerId = -1;
 
+  successHidden = true;
+  failHidden = true;
+
   battingStatForm = new FormGroup({
     player: new FormControl(),
     game: new FormControl(),
@@ -111,9 +114,10 @@ export class BattingStatsFormComponent implements OnInit {
       form.singles, form.doubles, form.triples, form.homeRuns, form.walks, form.hitByPitch,
       form.runs, form.rbis, form.strikeouts, form.sacrifices, form.stolenBases, form.caughtStealing
       ,form.passedBalls); 
-
+      this.successHidden = false;
       this.data.addBattingStat(this.battingStat).subscribe();
       console.log(this.battingStat);
+      this.battingStatForm.reset();
   }
 
 }

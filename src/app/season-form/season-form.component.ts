@@ -37,6 +37,7 @@ export class SeasonFormComponent implements OnInit {
   onSubmit(form){
     this.season = new Season(form.season, form.year, form.division);
     this.data.addSeason(this.season).subscribe();
+    this.seasonForm.reset();
     console.log(this.season);
   }
 

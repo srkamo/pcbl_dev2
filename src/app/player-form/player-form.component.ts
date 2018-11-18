@@ -20,6 +20,9 @@ export class PlayerFormComponent implements OnInit {
 
   submitted = false;
 
+  successHidden = true;
+  failHidden = true;
+
   playerForm = new FormGroup({
     firstName: new FormControl(),
     lastName: new FormControl(),
@@ -61,6 +64,7 @@ export class PlayerFormComponent implements OnInit {
     this.data.addPlayer(this.player).subscribe()
     this.submitted = true;
     this.playerForm.reset();
+    this.successHidden = false;
   }
 
   selectedSeason(seasonId){

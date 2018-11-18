@@ -24,8 +24,9 @@ export class GameFormComponent implements OnInit {
 
   gameForm = new FormGroup({
     month: new FormControl(),
-    day: new FormControl(),
     year: new FormControl(),
+    date: new FormControl(),
+    day: new FormControl(),
     start: new FormControl(),
     opponent: new FormControl(),
     teamScore: new FormControl(),
@@ -71,7 +72,8 @@ export class GameFormComponent implements OnInit {
   gameSeason;
   season;
   onSubmit(form){
-    this.date =  form.year + "-" + form.month + "-" + form.day + "T20:00:00Z" ;
+    console.log(form.date);
+    //this.date =  form.year + "-" + form.month + "-" + form.day + "T20:00:00Z" ;
     if(!form.home)
       form.home = 0;
     else
@@ -86,10 +88,11 @@ export class GameFormComponent implements OnInit {
   
     this.opponent_id = {id: form.opponent.id}
     //.game = new Game( //.date, form.start, this.gameSeason, this this.opponent_id, form.teamScore, form.opponentScore, form.location, form.home, form.playoff); 
-    this.game = new Game(this.date, form.start, this.gameSeason, this.opponent_id, form.teamScore, form.opponentScore, form.location, form.home, form.playoff);
+    this.game = new Game(form.date + "T20:00:00Z", form.start, this.gameSeason, this.opponent_id, form.teamScore, form.opponentScore, form.location, form.home, form.playoff);
     this.data.addGame(this.game).subscribe();
+    this.gameForm.reset();
 
-    console.log(this.game);
+    //console.log(this.game);
   }
 
 }

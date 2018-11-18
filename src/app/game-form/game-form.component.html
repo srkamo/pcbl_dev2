@@ -1,54 +1,54 @@
 <div class="container chart">
-  <h1>Game Form</h1>
-  <form [formGroup]="gameForm" (ngSubmit)="onSubmit(gameForm.value)"  >
-  
+  <h1>Create New Game</h1>
+  <form [formGroup]="gameForm" (ngSubmit)="onSubmit(gameForm.value)">
+
+    <div class="form-group"> 
     <mat-form-field>
       <mat-select [(value)]="selSeason" (selectionChange)="selectedSeason(selSeason.id)" placeholder="Season Select">
         <mat-option *ngFor="let season of seasons" [value]="season">{{season.season}} {{season.year}} </mat-option>
       </mat-select>
     </mat-form-field>
+  </div>
 
-    <div >
+    <div class="form-group">
       <label for="name">Date</label>
-      <input type="text" class="form-control" name="month" formControlName="month" required>
-      <input type="text" class="form-control" name="day" formControlName="day" required>
-      <input type="text" class="form-control" name="year" formControlName="year" required>
+      <input type="date" class="form-control" name="date" formControlName="date" required>
     </div>
 
     <div class="form-group">
-      <label for="name">Start Time HH:MM</label>
+      <label >Start Time HH:MM</label>
       <input type="text" class="form-control" id="opponent" formControlName="start" required>
     </div>
 
     <div class="form-group">
-      <label for="name">Opponent Score</label>  
+      <label >Opponent Score</label>
       <input type="text" class="form-control" id="opponent" formControlName="opponentScore" required>
     </div>
 
     <div class="form-group">
-      <label for="name">Team Score</label>
+      <label >Team Score</label>
       <input type="text" class="form-control" id="teamScore" formControlName="teamScore" required>
     </div>
 
     <div class="form-group">
-      <label for="name">Opponent</label>
-      <mat-select class="form-control" id="opponentScore" formControlName="opponent"  required>
-        <mat-option *ngFor="let team of teams" [value]="team">{{team.name}}</mat-option>
-      </mat-select>
-    </div>
+        <label >Opponent</label>
+        <select class="form-control" id="opponentScore" formControlName="opponent" required>
+          <option *ngFor="let team of teams" [value]="team">{{team.name}}</option>
+        </select>
+      </div>
 
     <div class="form-group">
-      <label for="bat">Location</label>
+      <label >Location</label>
       <input type="text" class="form-control" id="location" formControlName="location" required>
     </div>
 
     <div class="form-group">
-      <label for="throw">Home</label>
+      <label>Home</label>
       <input type="checkbox" class="form-control" id="home" formControlName="home" required>
     </div>
 
     <div class="form-group">
-      <label for="throw">Playoff</label>
+      <label >Playoff</label>
       <input type="checkbox" class="form-control" id="playoff" formControlName="playoff" required>
     </div>
 

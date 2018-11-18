@@ -1,6 +1,6 @@
 <div class="container chart">
     <form [formGroup]="updateTeamForm" (ngSubmit)="onSubmit(updateTeamForm.value)">
-      <h1>Teams</h1>
+      <h1>Update Teams</h1>
 
       <mat-form-field>
         <mat-select [(value)]="selSeason" (selectionChange)="selectedSeason(selSeason.id)" placeholder="Season Select">

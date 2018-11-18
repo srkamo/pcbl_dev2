@@ -37,6 +37,7 @@ export class TeamFormComponent implements OnInit {
     this.team = new Team(form.teamName);
 
     this.data.addTeam(this.team).subscribe();
+    this.teamForm.reset();
   }
 
 }
