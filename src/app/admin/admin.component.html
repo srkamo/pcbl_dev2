@@ -1,8 +1,7 @@
 <ul class="dropdown">
   <li>
     <mat-form-field>
-
-      <mat-select [(value)]="selected" (selectionChange)="callBack(selected.id)" placeholder="Season Select">
+      <mat-select [(value)]="selected" (selectionChange)="callBack(selected.id)" placeholder="Add/Update">
         <mat-option *ngFor="let option of dropDown" [value]="option">{{option.value}} </mat-option>
       </mat-select>
     </mat-form-field>

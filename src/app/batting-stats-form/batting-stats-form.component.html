@@ -1,98 +1,106 @@
 <div class="container chart">
-  <h1>Batting Stats Form</h1>
-  <form [formGroup]="battingStatForm" (ngSubmit)="onSubmit(battingStatForm.value)"  >
-    
-    <mat-form-field>
-      <mat-select [(value)]="selSeason" (selectionChange)="selectedSeason(selSeason.id)" placeholder="Season Select">
-        <mat-option *ngFor="let season of seasons" [value]="season">{{season.season}} {{season.year}} </mat-option>
-      </mat-select>
-    </mat-form-field>
+  <h1>Creating New Batting Stat</h1>
+  <form [formGroup]="battingStatForm" (ngSubmit)="onSubmit(battingStatForm.value)">
+
 
     <div class="form-group">
-      <label for="name">Player</label>
-      <mat-select class="form-control" [(value)]="selPlayer" formControlName="player" (selectionChange)="playerSelect(selPlayer.id)" required>
-        <mat-option *ngFor="let player of players" [value]="player">{{player.displayName}}</mat-option>
-      </mat-select>
+      <mat-form-field>
+        <mat-select [(value)]="selSeason" (selectionChange)="selectedSeason(selSeason.id)" placeholder="Season Select">
+          <mat-option *ngFor="let season of seasons" [value]="season">{{season.season}} {{season.year}} </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
 
     <div class="form-group">
-      <label for="name">Game</label>
-      <mat-select class="form-control" [(value)]="selGame" formControlName="game" (selectionChange)="gameSelect(selGame.id)" required>
-        <mat-option *ngFor="let game of games" [value]="game">{{game.opponentTeamInfo}} {{game.date.substring(0,10)}}</mat-option>
-      </mat-select>
+      <label>Player</label>
+      <select class="form-control" [(value)]="selPlayer" formControlName="player" (selectionChange)="playerSelect(selPlayer.id)"
+        required>
+        <option *ngFor="let player of players" [value]="player">{{player.displayName}}</option>
+      </select>
     </div>
-    
-    <div >
-      <label for="name">At Bats</label>
+
+    <div class="form-group">
+      <label>Game</label>
+      <select class="form-control" [(value)]="selGame" formControlName="game" (selectionChange)="gameSelect(selGame.id)"
+        required>
+        <option *ngFor="let game of games" [value]="game">{{game.opponentTeamInfo}} {{game.date.substring(0,10)}}</option>
+      </select>
+    </div>
+
+    <div>
+      <label>At Bats</label>
       <input type="text" class="form-control" formControlName="atBats" required>
     </div>
 
     <div class="form-group">
-      <label for="name">Singles</label>
-      <input type="text" class="form-control"  formControlName="singles" required>
+      <label>Singles</label>
+      <input type="text" class="form-control" formControlName="singles" required>
     </div>
 
     <div class="form-group">
-      <label for="name">Doubles</label>
+      <label>Doubles</label>
       <input type="text" class="form-control" formControlName="doubles" required>
     </div>
 
     <div class="form-group">
-      <label for="name">Triples</label>
+      <label>Triples</label>
       <input type="text" class="form-control" formControlName="triples" required>
     </div>
 
     <div class="form-group">
-      <label for="bat">Home Runs</label>
+      <label>Home Runs</label>
       <input type="text" class="form-control" formControlName="homeRuns" required>
     </div>
 
     <div class="form-group">
-      <label for="bat">Walks</label>
+      <label>Walks</label>
       <input type="text" class="form-control" formControlName="walks" required>
     </div>
 
     <div class="form-group">
-      <label for="bat">Hit By Pitch</label>
+      <label>Hit By Pitch</label>
       <input type="text" class="form-control" formControlName="hitByPitch" required>
     </div>
 
     <div class="form-group">
-      <label for="bat">Runs</label>
+      <label>Runs</label>
       <input type="text" class="form-control" formControlName="runs" required>
     </div>
 
     <div class="form-group">
-      <label for="bat">RBIs</label>
+      <label>RBIs</label>
       <input type="text" class="form-control" formControlName="rbis" required>
     </div>
 
     <div class="form-group">
-      <label for="bat">Strikeouts</label>
+      <label>Strikeouts</label>
       <input type="text" class="form-control" formControlName="strikeouts" required>
     </div>
 
     <div class="form-group">
-      <label for="bat">Sacrifices</label>
+      <label>Sacrifices</label>
       <input type="text" class="form-control" formControlName="sacrifices" required>
     </div>
 
     <div class="form-group">
-      <label for="bat">Stolen Bases</label>
+      <label>Stolen Bases</label>
       <input type="text" class="form-control" formControlName="stolenBases" required>
     </div>
 
     <div class="form-group">
-      <label for="bat">Caught Stealing</label>
+      <label>Caught Stealing</label>
       <input type="text" class="form-control" formControlName="caughtStealing" required>
     </div>
 
     <div class="form-group">
-      <label for="bat">Passed Balls</label>
+      <label>Passed Balls</label>
       <input type="text" class="form-control" formControlName="passedBalls" required>
     </div>
 
     <button type="submit" class="btn btn-success">Submit</button>
+
+    <div [hidden]="successHidden"> Addition Succesful </div>
+    <div [hidden]="failHidden"> Addition Failed</div>
 
   </form>
 </div>

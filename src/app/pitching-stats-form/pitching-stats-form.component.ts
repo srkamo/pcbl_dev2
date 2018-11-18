@@ -102,6 +102,7 @@ export class PitchingStatsFormComponent implements OnInit {
 
       this.pitchingStatForm.reset();
       console.log(this.pitchingStat);
+      
   }
 
 }
