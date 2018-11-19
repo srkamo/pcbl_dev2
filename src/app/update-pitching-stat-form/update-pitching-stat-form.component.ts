@@ -4,11 +4,11 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { DataService } from '../data.service';
 
 @Component({
-  selector: 'app-pitching-stats-form',
-  templateUrl: './pitching-stats-form.component.html',
-  styleUrls: ['./pitching-stats-form.component.scss']
+  selector: 'app-update-pitching-stat-form',
+  templateUrl: './update-pitching-stat-form.component.html',
+  styleUrls: ['./update-pitching-stat-form.component.scss']
 })
-export class PitchingStatsFormComponent implements OnInit {
+export class UpdatePitchingStatFormComponent implements OnInit {
 
   results = ['No Decision', 'Win', 'Loss', 'Save', 'Tie'];
   players;// = ['Miller, Mike', 'Asmus, Jeff', 'Baer, Alex'];
@@ -49,11 +49,16 @@ export class PitchingStatsFormComponent implements OnInit {
 
   }
 
-  selectedSeason(seasonId) {
+  currPitchStat = null;
+  pitchingStatsHidden = true;
+  selectSeason = false;
+  playerSelection = false;
+  gameSelection = false
 
+  selectedSeason(seasonId){
     this.data.getGamesBySeason(seasonId).subscribe(
       data => {
-        this.games = data;
+       this.games = data;
       }
     );
 
@@ -62,19 +67,29 @@ export class PitchingStatsFormComponent implements OnInit {
         this.players = data;
       }
     );
-
     console.log("seasonId: " + seasonId);
+    this.playerSelection = false;
+    this.gameSelection = false;
+    this.selectSeason = true;
   }
 
-  playerSelect(id) {
-    console.log("playerid: " + id);
-
+  playerSelect(id){
     this.playerId = id;
+    this.playerSelection = true;
+    if(this.playerSelection && this.gameSelection && this.selectSeason){
+      this.pitchingStatsHidden = false;
+      this.playerSelection = false;
+      
+    }
   }
 
-  gameSelect(id) {
-    console.log("gameid: " + id);
+  gameSelect(id){
     this.gameId = id;
+    this.gameSelection = true;
+    if(this.playerSelection && this.gameSelection && this.selectSeason){
+      this.pitchingStatsHidden = false;
+      this.gameSelection = false;
+    }
   }
 
   game;

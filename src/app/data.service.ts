@@ -151,6 +151,20 @@ export class DataService {
     // return this.http.get('http://localhost:8888/api/getAllTeams/');
   }
 
-  
+  getBattingStatForSeasonGamePlayer(seasonId, gameId, playerId){
+    return this.http.get('http://qa.pcblroyals.com:8888/api/getBattingStatForSeasonGamePlayer/'+ seasonId + "/" + gameId + "/" + playerId);
+  }
+
+  getPitchingStatForSeasonGamePlayer(seasonId, gameId, playerId){
+    return this.http.get('http://qa.pcblroyals.com:8888/api/getPitchingStatForSeasonGamePlayer/'+ seasonId + "/" + gameId + "/" + playerId);
+  }
+
+  updateBattingStat(battingStat){
+    return this.http.post('http://qa.pcblroyals.com:8888/api/updateBattingStat/', battingStat);
+  }
+
+  updatePitchingStat(pitchingStat){
+    return this.http.post('http://qa.pcblroyals.com:8888/api/updateBattingStat/', pitchingStat);
+  }
 
 }

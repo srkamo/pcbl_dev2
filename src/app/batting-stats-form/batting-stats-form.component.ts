@@ -21,9 +21,6 @@ export class BattingStatsFormComponent implements OnInit {
   gameId = -1;
   playerId = -1;
 
-  successHidden = true;
-  failHidden = true;
-
   battingStatForm = new FormGroup({
     player: new FormControl(),
     game: new FormControl(),
@@ -107,18 +104,42 @@ export class BattingStatsFormComponent implements OnInit {
   battingStat;
   player;
   game;
+  formCorrect = true;
+  successHidden = true;
+  failHidden = true;
   onSubmit(form){
-    this.player = {"id": form.player.id};
+
+    if(form.player == null || form.game == null || form.atBats == null || form.singles == null || form.doubles == null || form.triples == null
+      || form.homeRuns == null || form.walks == null || form.hitByPitch == null || form.runs == null || form.rbis == null || form.strikeouts == null
+      || form.sacrifices == null || form.stolenBases == null || form.caughtStealing == null || form.passedBalls == null ){
+        this.formCorrect = false;
+       
+    }
+    else if(!Number.isInteger(parseInt(form.atBats)) || !Number.isInteger(parseInt(form.singles)) || !Number.isInteger(parseInt(form.doubles)) ||
+    !Number.isInteger(parseInt(form.triples)) || !Number.isInteger(parseInt(form.homeRuns)) || !Number.isInteger(parseInt(form.walks)) || !Number.isInteger(parseInt(form.hitByPitch))
+    || !Number.isInteger(parseInt(form.runs)) || !Number.isInteger(parseInt(form.rbis)) || !Number.isInteger(parseInt(form.strikeouts)) || !Number.isInteger(parseInt(form.sacrifices))
+    || !Number.isInteger(parseInt(form.stolenBases)) || !Number.isInteger(parseInt(form.caughtStealing)) || !Number.isInteger(parseInt(form.passedBalls))){
+      this.formCorrect = false;
+      
+    }
+
+    if(this.formCorrect){
+      this.player = {"id": form.player.id};
     this.game = {"id": form.game.id}; 
     this.battingStat = new BattingStats(this.player,this.game , form.atBats,
       form.singles, form.doubles, form.triples, form.homeRuns, form.walks, form.hitByPitch,
       form.runs, form.rbis, form.strikeouts, form.sacrifices, form.stolenBases, form.caughtStealing
       ,form.passedBalls); 
       this.successHidden = false;
+      this.failHidden = true;
       this.data.addBattingStat(this.battingStat).subscribe();
-      console.log(this.battingStat);
       this.battingStatForm.reset();
-      //floats avg, obp, slg
+    }
+    else{
+      this.successHidden = true;
+      this.failHidden = false;
+    }
+    this.formCorrect = true;
   }
 
 }

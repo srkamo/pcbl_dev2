@@ -34,11 +34,32 @@ export class SeasonFormComponent implements OnInit {
     console.log("seasonId: " + seasonId);
   }
 
+  formCorrect = true;
+  successHidden = true;
+  failHidden = true;
   onSubmit(form){
-    this.season = new Season(form.season, form.year, form.division);
-    this.data.addSeason(this.season).subscribe();
-    this.seasonForm.reset();
-    console.log(this.season);
+
+    if(form.season == null || form.year == null || form.division == null){
+      this.formCorrect = false;
+    }
+    else if(!Number.isInteger(parseInt(form.year))){
+      this.formCorrect = false;
+    }
+
+    if(this.formCorrect){
+      this.season = new Season(form.season, form.year, form.division);
+      this.data.addSeason(this.season).subscribe();
+      this.seasonForm.reset();
+      console.log(this.season);
+      this.successHidden = false;
+      this.failHidden = true;
+    }
+    else{
+      this.successHidden = true;
+      this.failHidden = false;
+    }
+
+    this.formCorrect = true;
   }
 
 }

@@ -58,19 +58,44 @@ export class PlayerFormComponent implements OnInit {
     "batSide": "left"
 }
    */
+  formCorrect = true;
 
   onSubmit(form){
+<<<<<<< HEAD
+    if(form.firstName == null || form.lastName == null || form.jersey == null || form.positions == null
+      || form.throws == null || form.bats == null){
+        this.formCorrect = false;
+        console.log("nulled");
+    }
+
+    else if(!Number.isInteger(parseInt(form.jersey))){
+      this.formCorrect = false;
+      console.log("inted");
+    }
+    this.player = new Player(form.firstName, form.lastName, form.jersey, form.positions, form.throws, form.bats);
+    console.log("formCorrect: " + this.formCorrect);
+    console.log(this.player);
+    if(this.formCorrect){
+=======
     if(Number.isInteger( parseInt( form.jersey))){
       console.log("jersey number is integer")
     }
     else{
       console.log("jersey number is not an integer");
     }
+>>>>>>> 1c13123bb4ef2aca01d9ff040418dee0b2e14aae
     this.player = new Player(form.firstName, form.lastName, form.jersey, form.positions, form.throws, form.bats);
     //this.data.addPlayer(this.player).subscribe()
     this.submitted = true;
     this.playerForm.reset();
     this.successHidden = false;
+    this.failHidden = true;
+    }
+    else{
+      this.failHidden = false;
+      this.successHidden = true;
+    }
+    this.formCorrect = true;
   }
 
   selectedSeason(seasonId){

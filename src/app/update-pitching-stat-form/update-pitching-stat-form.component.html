@@ -1,0 +1,98 @@
+<div class="container chart">
+    <h1>Create New Pitching Stat</h1>
+    <form [formGroup]="pitchingStatForm" (ngSubmit)="onSubmit(pitchingStatForm.value)"  >
+      
+        <div class="form-group">
+            <mat-form-field>
+              <mat-select [(value)]="selSeason" (selectionChange)="selectedSeason(selSeason.id)" placeholder="Season Select">
+                <mat-option *ngFor="let season of seasons" [value]="season">{{season.season}} {{season.year}} </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+      
+          <div class="form-group">
+              <mat-form-field>
+            <!-- <label>Player</label> -->
+            <mat-select  [(value)]="selPlayer" formControlName="player" (selectionChange)="playerSelect(selPlayer.id)" placeholder="Player Select">
+              <mat-option *ngFor="let player of players" [value]="player">{{player.displayName}}</mat-option>
+            </mat-select>
+            </mat-form-field>
+          </div>
+      
+          <div class="form-group">
+            <!-- <label>Game</label> -->
+            <mat-form-field>
+            <mat-select  [(value)]="selGame" formControlName="game" (selectionChange)="gameSelect(selGame.id)" placeholder="Game Select">
+              <mat-option *ngFor="let game of games" [value]="game">{{game.opponentTeamInfo}} {{game.date.substring(0,10)}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          </div>
+
+      <div [hidden]="pitchingStatsHidden">
+      <div >
+        <label for="name">Innings</label>
+        <input type="text" class="form-control" formControlName="innings" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="name">Earned Runs</label>
+        <input type="text" class="form-control"  formControlName="earnedRuns" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="name">Total Runs</label>
+        <input type="text" class="form-control" formControlName="totalRuns" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="name">Strikeouts</label>
+        <input type="text" class="form-control" formControlName="strikeouts" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="bat">Walks</label>
+        <input type="text" class="form-control" formControlName="walks" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="bat">Hits</label>
+        <input type="text" class="form-control" formControlName="hits" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="bat">Hit By Pitch</label>
+        <input type="text" class="form-control" formControlName="hitByPitch" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="bat">Wild Pitches</label>
+        <input type="text" class="form-control" formControlName="wildPitches" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="bat">Stolen Bases</label>
+        <input type="text" class="form-control" formControlName="stolenBases" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="bat">Pick Offs</label>
+        <input type="text" class="form-control" formControlName="pickOffs" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="name">Result</label>
+        <select class="form-control" formControlName="result" required>
+          <option *ngFor="let result of results" [value]="result">{{result}}</option>
+        </select>
+      </div>
+  
+      <button type="submit" class="btn btn-success">Submit</button>
+  
+      <div [hidden]="successHidden" class="status">Created Stat</div> 
+      <div [hidden]="failHidden" class="status">Error</div>
+    </div>
+  
+    </form>
+  </div>
+  
+  

@@ -51,17 +51,35 @@ export class UpdatePlayerFormComponent implements OnInit {
    */
   updatePlayers;
   player_ids = new Array();
+
+  formCorrect = true;
+  successHidden = true;
+  failHidden = true;
   onSubmit(form){
     
-    for(let p of form.players){
-      this.player_ids.push(p.id);
+    if(form.players == null || this.season_id == null){
+      this.formCorrect = false;
     }
-    
-    this.updatePlayers = {"season_id": this.season_id, "player_ids": this.player_ids};
-    this.data.updateSeasonPlayer(this.updatePlayers).subscribe();
-    this.player_ids = new Array();
-    this.updatePlayerForm.reset();
-    console.log(this.updatePlayers);
+
+    if(this.formCorrect){
+      for(let p of form.players){
+        this.player_ids.push(p.id);
+      }
+      
+      this.updatePlayers = {"season_id": this.season_id, "player_ids": this.player_ids};
+      //this.data.updateSeasonPlayer(this.updatePlayers).subscribe();
+      this.player_ids = new Array();
+      this.updatePlayerForm.reset();
+      console.log(this.updatePlayers);
+      this.successHidden = false;
+      this.failHidden = true;
+    }
+    else{
+      this.successHidden = true;
+      this.failHidden = false;
+    }
+
+    this.formCorrect = true;
   }
 
  

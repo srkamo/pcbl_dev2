@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormsModule } from '@angular/forms';
 import { DataService } from '../data.service';
 import { formatCurrency } from '@angular/common';
 
@@ -55,15 +55,34 @@ export class UpdateTeamFormComponent implements OnInit {
   */
   updateTeams;
   teams_ids = new Array();
+  formCorrect = true;
+  successHidden = true;
+  failHidden = true;
   onSubmit(form){
-    for(let t of form.teams){
-      this.teams_ids.push(t.id);
+    
+
+    if(form.teams == null || this.season_id == null){
+      this.formCorrect = false;
     }
-    this.updateTeams = {"season_id": this.season_id, "team_ids": this.teams_ids};
-    this.data.updateSeasonTeam(this.updateTeams).subscribe();
-    this.teams_ids = new Array();
-    this.updateTeamForm.reset();
-    console.log(this.updateTeams);
+
+    if(this.formCorrect){
+      for(let t of form.teams){
+        this.teams_ids.push(t.id);
+      }
+
+      this.updateTeams = {"season_id": this.season_id, "team_ids": this.teams_ids};
+      //this.data.updateSeasonTeam(this.updateTeams).subscribe();
+      this.teams_ids = new Array();
+      this.updateTeamForm.reset();
+      console.log(this.updateTeams);
+      this.successHidden = false;
+      this.failHidden = true;
+    }
+    else {
+      this.successHidden = true;
+      this.failHidden = false;
+    }
+    this.formCorrect = true;
   }
 
 }
