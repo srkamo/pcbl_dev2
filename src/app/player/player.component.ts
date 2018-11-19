@@ -18,6 +18,8 @@ export class PlayerComponent implements OnInit {
   playersDrop_;
   playerAllBat;
   playerAllPitch;
+  playerSeasonBat;
+  playerSeasonPitch;
 
   currPlayer;
   playerId;
@@ -142,6 +144,8 @@ export class PlayerComponent implements OnInit {
         this.battingStats.sort = this.battingTableSort;
         this.pitchingStats = new MatTableDataSource(data['gamePitching']);
         this.pitchingStats.sort = this.pitchingTableSort;
+        this.playerSeasonBat = data['totalBatting'][0];
+        this.playerSeasonPitch = data['totalPitching'][0];
         
       }
     );
@@ -152,7 +156,8 @@ export class PlayerComponent implements OnInit {
         this.battingStats_.sort = this.battingTableSort_;
         this.pitchingStats_ = new MatTableDataSource(data['seasonPitching']);
         this.pitchingStats_.sort = this.pitchingTableSort_;
-        
+        this.playerAllBat = data['allTimeBatting'][0];
+        this.playerAllPitch = data['allTimePitching'][0];
       }
     );
 
@@ -184,6 +189,8 @@ callBackSeasonByPlayer(player){
         this.battingStats.sort = this.battingTableSort;
         this.pitchingStats = new MatTableDataSource(data['gamePitching']);
         this.pitchingStats.sort = this.pitchingTableSort;
+        this.playerSeasonBat = data['totalBatting'][0];
+        this.playerSeasonPitch = data['totalPitching'][0];
         
       }
     );
@@ -197,6 +204,8 @@ callBackSeasonByPlayer(player){
         this.battingStats_.sort = this.battingTableSort_;
         this.pitchingStats_ = new MatTableDataSource(data['seasonPitching']);
         this.pitchingStats_.sort = this.pitchingTableSort_;
+        this.playerAllBat = data['allTimeBatting'][0];
+        this.playerAllPitch = data['allTimePitching'][0];
         
       }
     );
