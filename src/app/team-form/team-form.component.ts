@@ -33,11 +33,29 @@ export class TeamFormComponent implements OnInit {
     console.log("seasonId: " + seasonId);
   }
   
-  onSubmit(form){
-    this.team = new Team(form.teamName);
 
-    this.data.addTeam(this.team).subscribe();
-    this.teamForm.reset();
+  formCorrect = true;
+  successHidden = true;
+  failHidden = true;
+  onSubmit(form){
+
+    if(form.teamName == null){
+      this.formCorrect =false;
+    }
+
+    if(this.formCorrect){
+      this.team = new Team(form.teamName);
+      this.data.addTeam(this.team).subscribe();
+      this.teamForm.reset();
+      this.successHidden = false;
+      this.failHidden = true;
+    }
+    else{
+      this.successHidden = true;
+      this.failHidden = false;
+    }
+
+    this.formCorrect = true;
   }
 
 }

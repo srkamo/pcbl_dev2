@@ -9,11 +9,15 @@
       </mat-form-field>
       
       <div>
-      <select multiple="multiple" class="form-control" formControlName="teams">
+      <select multiple="multiple" size="15" class="form-control"  formControlName="teams">
         <option *ngFor="let team of teams" [value]="team">{{team.name}}</option>
       </select>
     </div>
   
     <button type="submit" class="btn btn-success">Submit</button>
+
+    <div [hidden]="successHidden" class="status">Added Teams</div> 
+    <div [hidden]="failHidden" class="status">Error</div>
+
     </form>
   </div>

@@ -13,7 +13,7 @@ import { Season } from '../season';
 // export interface season{
 
 //     id: string;
-  
+
 // }
 
 export class GameFormComponent implements OnInit {
@@ -53,46 +53,68 @@ export class GameFormComponent implements OnInit {
   teams;
   season_id;
   opponent_id;
-  selectedSeason(seasonId){
+  selectedSeason(seasonId) {
     this.season_id = seasonId;
     this.data.getAllTeams().subscribe(
       data => {
-       this.teams = data;
+        this.teams = data;
       }
     );
   }
 
-  selectedOpponent(id){
+  selectedOpponent(id) {
     console.log(id);
     this.opponent_id = id;
   }
 
 
-  
+
   gameSeason;
   season;
-  onSubmit(form){
+  formCorrect = true;
+  successHidden = true;
+  failHidden = true;
+  onSubmit(form) {
     console.log(form.date);
-    //this.date =  form.year + "-" + form.month + "-" + form.day + "T20:00:00Z" ;
-    if(!form.home)
-      form.home = 0;
-    else
-      form.home = 1;
-    if(!form.playoff)
-      form.playoff = 0;
-    else
-      form.playoff = 1;
 
+    if (form.date == null || form.start == null || form.teamScore == null || form.opponentScore == null
+      || form.location == null) {
+      this.formCorrect = false;
+    }
+    else if (!Number.isInteger(parseInt(form.teamScore))) {
+      this.formCorrect = false;
+    }
+    else if (!Number.isInteger(parseInt(form.opponentScore))) {
+      this.formCorrect = false;
+    }
 
-    this.gameSeason = {id: this.season_id};
-  
-    this.opponent_id = {id: form.opponent.id}
-    //.game = new Game( //.date, form.start, this.gameSeason, this this.opponent_id, form.teamScore, form.opponentScore, form.location, form.home, form.playoff); 
-    this.game = new Game(form.date + "T20:00:00Z", form.start, this.gameSeason, this.opponent_id, form.teamScore, form.opponentScore, form.location, form.home, form.playoff);
-    this.data.addGame(this.game).subscribe();
-    this.gameForm.reset();
+    if (this.formCorrect) {
 
-    //console.log(this.game);
+      if (!form.home)
+        form.home = 0;
+      else
+        form.home = 1;
+      if (!form.playoff)
+        form.playoff = 0;
+      else
+        form.playoff = 1;
+
+      this.gameSeason = { id: this.season_id };
+      this.opponent_id = { id: form.opponent.id }
+      //.game = new Game( //.date, form.start, this.gameSeason, this this.opponent_id, form.teamScore, form.opponentScore, form.location, form.home, form.playoff); 
+      this.game = new Game(form.date + "T20:00:00Z", form.start, this.gameSeason, this.opponent_id, form.teamScore, form.opponentScore, form.location, form.home, form.playoff);
+      this.data.addGame(this.game).subscribe();
+      this.gameForm.reset();
+      
+      this.successHidden = false;
+      this.failHidden = true;
+    }
+    else {
+      this.successHidden = true;
+      this.failHidden = false;
+    }
+
+    this.formCorrect = true;
   }
 
 }
