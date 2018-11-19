@@ -15,7 +15,7 @@
   <li>
     <mat-form-field>
      
-      <mat-select [(value)]="selectedGame" (selectionChange)="callBackGames(selectedGame.id); gameSel = true" placeholder="Game Select">
+      <mat-select [(value)]="selectedGame" (selectionChange)="callBackGames(selectedGame.game_id); gameSel = true" placeholder="Game Select">
         <mat-option *ngFor="let game of gamesDrop" [value]="game"> {{game.gameString}}</mat-option>
       </mat-select>
     </mat-form-field>

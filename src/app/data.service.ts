@@ -164,7 +164,7 @@ export class DataService {
   }
 
   updatePitchingStat(pitchingStat){
-    return this.http.post('http://qa.pcblroyals.com:8888/api/updateBattingStat/', pitchingStat);
+    return this.http.post('http://qa.pcblroyals.com:8888/api/updatePitchingStat/', pitchingStat);
   }
 
 }

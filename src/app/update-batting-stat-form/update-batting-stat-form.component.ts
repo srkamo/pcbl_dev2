@@ -210,7 +210,7 @@ export class UpdateBattingStatFormComponent implements OnInit {
 
     if (this.formCorrect) {
       this.player = { "id": form.player.id };
-      this.game = { "id": form.game.id };
+      this.game = { "id": this.gameId };
       this.battingStat = new BattingStatsUpdate(this.battingBean.id,this.player, this.game, form.atBats,
         form.singles, form.doubles, form.triples, form.homeRuns, form.walks, form.hitByPitch,
         form.runs, form.rbis, form.strikeouts, form.sacrifices, form.stolenBases, form.caughtStealing
