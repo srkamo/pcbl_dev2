@@ -3,6 +3,8 @@ import { Game } from '../game'
 import { FormGroup, FormControl } from '@angular/forms';
 import { DataService } from '../data.service';
 import { Season } from '../season';
+import { parse } from 'path';
+import { elementStyleProp } from '@angular/core/src/render3/instructions';
 
 @Component({
   selector: 'app-game-form',
