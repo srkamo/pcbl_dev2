@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { DataService } from '../data.service';
 import { merge, Observable, of as observableOf } from 'rxjs';
 import { trigger, style, transition, animate, keyframes, query, stagger } from '@angular/animations';
 import { MatPaginator, MatSort, MatTableDataSource, MatOption } from '@angular/material';
-import {Router, ActivatedRoute, Params} from '@angular/router';//edited for links
+import { Router, ActivatedRoute, Params, NavigationEnd} from '@angular/router';//edited for links
 
 @Component({
   selector: 'app-player',
@@ -12,7 +12,15 @@ import {Router, ActivatedRoute, Params} from '@angular/router';//edited for link
 })
 export class PlayerComponent implements OnInit {
 
-  constructor(private data: DataService, private activatedRoute: ActivatedRoute) { } //edited for links
+  constructor(private data: DataService, private activatedRoute: ActivatedRoute, private router: Router) {
+  this.navigationSubscription = this.router.events.subscribe((e: any) => {
+      if(e instanceof NavigationEnd){
+        this.ngOnInit();
+      }
+    }); 
+  }
+
+  navigationSubscription;
 
   playersDrop;
   playersDrop_;
@@ -56,6 +64,8 @@ export class PlayerComponent implements OnInit {
   @ViewChild('pitchingTableSort_') public pitchingTableSort_: MatSort;
 
   ngOnInit() {
+    this.seasonsDrop = null;
+    this.currPlayer = null;
 
     this.activatedRoute.queryParams.subscribe(params => {
         this.seasonId = params['seasonId'];
@@ -209,6 +219,12 @@ callBackSeasonByPlayer(player){
         
       }
     );
+  }
+
+  ngOnDestroy(){
+    if(this.navigationSubscription){
+      this.navigationSubscription.unsubscribe();
+    }
   }
 
 

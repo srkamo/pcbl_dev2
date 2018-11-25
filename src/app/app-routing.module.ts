@@ -11,38 +11,52 @@ import { AdminComponent } from './admin/admin.component'
 const routes: Routes = [
 {
   path: '',
-  component: HomeComponent
+  component: HomeComponent,
+  runGuardsAndResolvers: 'always'
 },
 {
   path: 'career',
-  component: CareerComponent
+  component: CareerComponent,
+  runGuardsAndResolvers: 'always'
 },
 {
   path: 'season',
-  component: SeasonComponent
+  component: SeasonComponent,
+  runGuardsAndResolvers: 'always'
 },
 {
   path: 'game',
-  component: GameComponent
+  component: GameComponent,
+  runGuardsAndResolvers: 'always'
 },
 {
   path: 'records',
-  component: RecordsComponent
+  component: RecordsComponent,
+  runGuardsAndResolvers: 'always'
 },
 {
   path: 'player',
-  component: PlayerComponent
+  component: PlayerComponent,
+  runGuardsAndResolvers: 'always'
 },
 
 {
   path: 'admin',
-  component: AdminComponent
+  component: AdminComponent,
+  runGuardsAndResolvers: 'always'
 },
 
 ];
 
+// @NgModule({
+//   imports: [RouterModule.forRoot(routes)],
+//   exports: [RouterModule]
+// })
+
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    onSameUrlNavigation: 'reload'
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

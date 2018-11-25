@@ -1,16 +1,17 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { DataService } from '../data.service';
 import { merge, Observable, of as observableOf } from 'rxjs';
 import { trigger, style, transition, animate, keyframes, query, stagger } from '@angular/animations';
 import { MatPaginator, MatSort, MatTableDataSource, MatOption } from '@angular/material';
-import {Router, ActivatedRoute, Params} from '@angular/router';//edited for links
+import { Router, ActivatedRoute, Params, NavigationEnd} from '@angular/router';//edited for links
 
 @Component({
   selector: 'app-season',
   templateUrl: './season.component.html',
   styleUrls: ['./season.component.scss']
 })
-export class SeasonComponent implements OnInit {
+export class SeasonComponent implements OnInit, OnDestroy {
+  navigationSubscription;
 
   batting;
   pitching;
@@ -28,11 +29,15 @@ export class SeasonComponent implements OnInit {
   @ViewChild('battingTableSort') public battingTableSort: MatSort;
   @ViewChild('pitchingTableSort') public pitchingTableSort: MatSort;
 
-  constructor(private data: DataService, private activatedRoute: ActivatedRoute) { } //edited for links
-
+  constructor(private data: DataService, private activatedRoute: ActivatedRoute, private router: Router) { 
+    this.navigationSubscription = this.router.events.subscribe((e: any) => {
+      if(e instanceof NavigationEnd){
+        this.ngOnInit();
+      }
+    });
+  }
 
   ngOnInit() {
-
     //edited for links
     this.activatedRoute.queryParams.subscribe(params => {
         this.seasonId = params['seasonId'];
@@ -70,6 +75,12 @@ export class SeasonComponent implements OnInit {
       }
     );
    
+  }
+
+  ngOnDestroy(){
+    if(this.navigationSubscription){
+      this.navigationSubscription.unsubscribe();
+    }
   }
 
 }

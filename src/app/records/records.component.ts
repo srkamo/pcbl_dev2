@@ -1,16 +1,17 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { DataService } from '../data.service';
 import { merge, Observable, of as observableOf } from 'rxjs';
 import { trigger, style, transition, animate, keyframes, query, stagger } from '@angular/animations';
 import { MatPaginator, MatSort, MatTableDataSource, MatOption } from '@angular/material';
+import { Router, ActivatedRoute, Params, NavigationEnd} from '@angular/router';
 
 @Component({
   selector: 'app-records',
   templateUrl: './records.component.html',
   styleUrls: ['./records.component.scss']
 })
-export class RecordsComponent implements OnInit {
-
+export class RecordsComponent implements OnInit, OnDestroy {
+  navigationSubscription;
 
   AllTimeCol = [ 'recordString', 'recordValue'];
  
@@ -85,9 +86,14 @@ export class RecordsComponent implements OnInit {
 
   game_strikeouts;
 
-  
-
-  constructor(private data: DataService) { }
+ 
+  constructor(private data: DataService, private router: Router) {
+    this.navigationSubscription = this.router.events.subscribe((e: any) => {
+      if(e instanceof NavigationEnd){
+        this.ngOnInit();
+      }
+    });
+  }
 
   ngOnInit() {
     this.data.getAllTimeRecordsBatting().subscribe(
@@ -211,6 +217,12 @@ export class RecordsComponent implements OnInit {
 
   toggleBatPitch(){
     this.battingHide = !this.battingHide;
+  }
+
+  ngOnDestroy(){
+    if(this.navigationSubscription){
+      this.navigationSubscription.unsubscribe();
+    }
   }
 
 }

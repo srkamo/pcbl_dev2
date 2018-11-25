@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 import { DataService } from '../data.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
+  navigationSubscription;
 
   seasonCol: string[] = ['season', 'record'];
   last3Columns: string[] = ['opponent', 'score'];
@@ -14,7 +16,14 @@ export class HomeComponent implements OnInit {
   lastThree: Object;
   allTime: Object;
 
-  constructor(private data: DataService) { }
+  constructor(private data: DataService, private router: Router) { 
+    this.navigationSubscription = this.router.events.subscribe((e: any) => {
+      if(e instanceof NavigationEnd){
+        this.ngOnInit();
+      }
+    });
+
+  }
 
   ngOnInit() {
 
@@ -29,6 +38,10 @@ export class HomeComponent implements OnInit {
     );
   }
 
+  ngOnDestroy(){
+    if(this.navigationSubscription){
+      this.navigationSubscription.unsubscribe();
+    }
 
-
+  }
 }
