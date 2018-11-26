@@ -290,3 +290,4 @@ export class RecordsComponent implements OnInit, OnDestroy {
       this.navigationSubscription.unsubscribe();
     }
 }
+}
