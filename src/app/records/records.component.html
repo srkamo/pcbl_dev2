@@ -2,7 +2,7 @@
 
 
 
-<ul class="dropdown">
+<!-- <ul class="dropdown">
   <li>
     <mat-form-field>
 
@@ -11,7 +11,13 @@
       </mat-select>
     </mat-form-field>
   </li>
-</ul>
+</ul> -->
+
+<form>
+  <input type="radio" (click)="allTimeRadio()" name="chart" > All Time
+  <input type="radio" (click)="SingleSeasonRadio()" name="chart"> Single Season
+  <input type="radio" (click)="SingleGameRadio()" name="chart"> Single Game
+</form>
 
 
 <!-- <div class="batOrPitch">

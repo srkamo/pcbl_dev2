@@ -219,10 +219,74 @@ export class RecordsComponent implements OnInit, OnDestroy {
     this.battingHide = !this.battingHide;
   }
 
-  ngOnDestroy(){
+  allTimeRadio(){
+    this.allTimeHide = false;
+      this.seasonHide = true;
+      this.gameHide = true;
+  }
+
+  SingleSeasonRadio(){
+    this.allTimeHide = true;
+      this.seasonHide = false;
+      this.gameHide = true;
+      this.data.getSeasonRecordsBatting().subscribe(
+        data=>{
+          this.season_hr = data['single_season_homeruns'];
+          this.season_mvp = data['single_season_mvp'];
+          this.season_hbp = data['single_season_hitbypitch'];
+          this.season_rbis = data['single_season_rbis'];
+          this.season_slug = data['single_season_slugging_percentage'];
+          this.season_runs = data['single_season_runs'];
+          this.season_sb = data['single_season_stolenbases'];
+          this.season_obp = data['single_season_on_base_percentage'];
+          this.season_2r = data['single_season_doubles'];
+          this.season_ba = data['single_season_batting_average'];
+          this.season_3r = data['single_season_triples'];
+          this.season_walks = data['single_season_walks'] ;
+          this.season_hits = data['single_season_hits'];
+        }
+      );
+
+      this.data.getSeasonRecordsPitching().subscribe(
+        data=>{
+          this.season_whip = data['single_season_whip'];
+          this.season_wins = data['single_season_wins'];
+          this.season_strikeouts = data['single_season_strikeouts'];
+          this.season_saves = data['single_season_saves'];
+          this.season_era = data['single_season_era'];
+          this.season_cy_young =  data['single_season_cy_young'];
+        }
+      );
+  }
+
+  SingleGameRadio(){
+    this.allTimeHide = true;
+    this.seasonHide = true;
+    this.gameHide = false;
+    
+    this.data.getGameRecordsBatting().subscribe(
+      data => {
+        this.game_rbis = data['single_game_rbis'];
+        this.game_homeruns = data['single_game_homeruns'];
+        this.game_3r = data['single_game_triples'];
+        this.game_2r = data['single_game_doubles'];
+        this.game_stolenbases = data['single_game_stolenbases'];
+        this.game_hits = data['single_game_hits'];
+        this.game_runs = data['single_game_runs'];
+        this.game_walks = data['single_game_walks'];
+        this.game_hitbypitch = data['single_game_hitbypitch'];
+      }
+    );
+
+    this.data.getGameRecordsPitching().subscribe(
+      data =>{
+        this.game_strikeouts = data['single_game_strikeouts'];
+      }
+    );
+
+  }
+ ngOnDestroy(){
     if(this.navigationSubscription){
       this.navigationSubscription.unsubscribe();
     }
-  }
-
 }
