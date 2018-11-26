@@ -82,15 +82,7 @@ export class PlayerComponent implements OnInit {
       }
     );
 
-    //setting the seasonId
-    if(this.seasonId == null){
-      this.seasonId = 1;
-    }
-
-    //setting the playerId
-    if(this.playerId == null){
-      this.playerId = 1;
-    }
+    
 
     //setting batting/pitching
     this.allTimeButton = document.getElementById('allTimeButton');
