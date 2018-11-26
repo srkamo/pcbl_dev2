@@ -1,5 +1,5 @@
 <div class="container chart">
-    <h1>Create New Pitching Stat</h1>
+    <h1>Update Pitching Stat</h1>
     <form [formGroup]="pitchingStatForm" (ngSubmit)="onSubmit(pitchingStatForm.value)"  >
       
         <div class="form-group">
@@ -22,8 +22,8 @@
           <div class="form-group">
             <!-- <label>Game</label> -->
             <mat-form-field>
-            <mat-select  [(value)]="selGame" formControlName="game" (selectionChange)="gameSelect(selGame.id)" placeholder="Game Select">
-              <mat-option *ngFor="let game of games" [value]="game">{{game.opponentTeamInfo}} {{game.date.substring(0,10)}}</mat-option>
+            <mat-select  [(value)]="selGame" formControlName="game" (selectionChange)="gameSelect(selGame.game_id)" placeholder="Game Select">
+              <mat-option *ngFor="let game of games" [value]="game">{{game.gameString}}</mat-option>
             </mat-select>
           </mat-form-field>
           </div>
@@ -31,7 +31,7 @@
       <div [hidden]="pitchingStatsHidden">
       <div >
         <label for="name">Innings</label>
-        <input type="text" class="form-control" formControlName="innings" required>
+        <input type="text" class="form-control" formControlName="innings" >
       </div>
   
       <div class="form-group">
@@ -82,7 +82,12 @@
       <div class="form-group">
         <label for="name">Result</label>
         <select class="form-control" formControlName="result" required>
-          <option *ngFor="let result of results" [value]="result">{{result}}</option>
+          <!-- <option *ngFor="let result of results" [value]="result" >{{result}}</option> ['No Decision', 'Win', 'Loss', 'Save', 'Tie']; -->
+          <option value="0">No Decision</option>
+          <option value="1">Win</option>
+          <option value="2">Loss</option>
+          <option value="3">Save</option>
+          <option value="4">Tie</option>
         </select>
       </div>
   

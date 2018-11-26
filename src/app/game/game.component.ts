@@ -1,19 +1,26 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { DataService } from '../data.service';
 import { merge, Observable, of as observableOf } from 'rxjs';
 import { trigger, style, transition, animate, keyframes, query, stagger } from '@angular/animations';
 import { MatPaginator, MatSort, MatTableDataSource, MatOption } from '@angular/material';
+import { Router, ActivatedRoute, Params, NavigationEnd} from '@angular/router';
 
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss']
 })
-export class GameComponent implements OnInit {
+export class GameComponent implements OnInit, OnDestroy {
+  navigationSubscription;
 
 
-
-  constructor(private data: DataService) { }
+  constructor(private data: DataService, private router: Router){ 
+    this.navigationSubscription = this.router.events.subscribe((e: any) => {
+      if(e instanceof NavigationEnd){
+        this.ngOnInit();
+      }
+    });
+  }
 
   seasonsDrop;
   gamesDrop;
@@ -22,6 +29,7 @@ export class GameComponent implements OnInit {
   pitchingStats;
   pitchingAllTime;
   gameInfo;
+  gameSel;
 
 
   seasonId = 1;
@@ -35,16 +43,20 @@ export class GameComponent implements OnInit {
 
 
   ngOnInit() {
-    
-
     this.data.getAllSeasons().subscribe(
       data => {
         this.seasonsDrop = data;
       }
     );
 
-   
-    
+    this.gamesDrop = null;
+    this.battingStats = null;
+    this.battingAllTime = null;
+    this.pitchingStats = null;
+    this.pitchingAllTime = null;
+    this.gameInfo = null;
+    this.gameSel = false;
+
   }
 
   callBackGames(id) {
@@ -73,6 +85,9 @@ export class GameComponent implements OnInit {
     );
   }
 
- 
-
+  ngOnDestroy(){
+    if(this.navigationSubscription){
+      this.navigationSubscription.unsubscribe();
+    }
+  }
 }

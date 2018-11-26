@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PitchingStats } from '../pitching-stats'
+import { PitchingStatsUpdate } from '../pitching-stats-update'
 import { FormGroup, FormControl } from '@angular/forms';
 import { DataService } from '../data.service';
 
@@ -49,13 +50,15 @@ export class UpdatePitchingStatFormComponent implements OnInit {
 
   }
 
-  currPitchStat = null;
   pitchingStatsHidden = true;
   selectSeason = false;
   playerSelection = false;
   gameSelection = false
+  season_id = -1;
+  pitchingBean = null;
 
   selectedSeason(seasonId){
+    this.season_id = seasonId;
     this.data.getGamesBySeason(seasonId).subscribe(
       data => {
        this.games = data;
@@ -79,6 +82,35 @@ export class UpdatePitchingStatFormComponent implements OnInit {
     if(this.playerSelection && this.gameSelection && this.selectSeason){
       this.pitchingStatsHidden = false;
       this.playerSelection = false;
+
+      this.data.getPitchingStatForSeasonGamePlayer(this.season_id, this.gameId, this.playerId).subscribe(
+        data => {
+          this.pitchingBean = data[0];
+          if (this. pitchingBean == null) {
+            this.pitchingStatsHidden = true;
+            this.successHidden = true;
+            this.failHidden = false;
+
+          }
+          else {
+            this.failHidden = true;
+            this.successHidden = true;
+            this. pitchingStatForm.get('innings').setValue(this. pitchingBean.innings);
+            this. pitchingStatForm.get('earnedRuns').setValue(this. pitchingBean.earnedRuns);
+            this. pitchingStatForm.get('totalRuns').setValue(this. pitchingBean.totalRuns);
+            this. pitchingStatForm.get('strikeouts').setValue(this. pitchingBean.strikeouts);
+            this. pitchingStatForm.get('walks').setValue(this. pitchingBean.walks);
+            this. pitchingStatForm.get('hits').setValue(this. pitchingBean.hits);
+            this. pitchingStatForm.get('hitByPitch').setValue(this. pitchingBean.hitByPitch);
+            this. pitchingStatForm.get('wildPitches').setValue(this. pitchingBean.wildPitches);
+            this. pitchingStatForm.get('stolenBases').setValue(this. pitchingBean.stolenBases);
+            this. pitchingStatForm.get('pickOffs').setValue(this. pitchingBean.pickoffs);
+            this. pitchingStatForm.get('result').setValue(this. pitchingBean.result);
+        
+          }
+
+        }
+      );
       
     }
   }
@@ -89,6 +121,36 @@ export class UpdatePitchingStatFormComponent implements OnInit {
     if(this.playerSelection && this.gameSelection && this.selectSeason){
       this.pitchingStatsHidden = false;
       this.gameSelection = false;
+      this.data.getPitchingStatForSeasonGamePlayer(this.season_id, this.gameId, this.playerId).subscribe(
+        data => {
+          this.pitchingBean = data[0];
+          if (this. pitchingBean == null) {
+            this.pitchingStatsHidden = true;
+            this.successHidden = true;
+            this.failHidden = false;
+
+          }
+          else {
+            this.failHidden = true;
+            this.successHidden = true;
+            this. pitchingStatForm.get('innings').setValue(this. pitchingBean.innings);
+            this. pitchingStatForm.get('earnedRuns').setValue(this. pitchingBean.earnedRuns);
+            this. pitchingStatForm.get('totalRuns').setValue(this. pitchingBean.totalRuns);
+            this. pitchingStatForm.get('strikeouts').setValue(this. pitchingBean.strikeouts);
+            this. pitchingStatForm.get('walks').setValue(this. pitchingBean.walks);
+            this. pitchingStatForm.get('hits').setValue(this. pitchingBean.hits);
+            this. pitchingStatForm.get('hitByPitch').setValue(this. pitchingBean.hitByPitch);
+            this. pitchingStatForm.get('wildPitches').setValue(this. pitchingBean.wildPitches);
+            this. pitchingStatForm.get('stolenBases').setValue(this. pitchingBean.stolenBases);
+            this. pitchingStatForm.get('pickOffs').setValue(this. pitchingBean.pickoffs);
+            this. pitchingStatForm.get('result').setValue(this. pitchingBean.result);
+            
+        
+          }
+
+        }
+      );
+      
     }
   }
 
@@ -100,13 +162,14 @@ export class UpdatePitchingStatFormComponent implements OnInit {
   successHidden = true;
   failHidden = true;
   onSubmit(form) {
+    console.log("form: " + form.result);
 
     if (form.player == null || form.game == null || form.result == null || form.innings == null || form.earnedRuns == null || form.totalRuns == null
       || form.strikeouts == null || form.walks == null || form.hits == null || form.hitByPitch == null || form.wildPitches == null || form.stolenBases == null
       || form.pickOffs == null) {
       this.formCorrect = false;
     }
-    else if (form.innings.indexOf('.0') < 0 && form.innings.indexOf('.1') < 0 && form.innings.indexOf('.2') < 0) {
+    else if ( form.innings.toString().indexOf('.0') < 0 && form.innings.toString().indexOf('.1') < 0 && form.innings.toString().indexOf('.2') < 0) {
       this.formCorrect = false;
 
     }
@@ -117,23 +180,14 @@ export class UpdatePitchingStatFormComponent implements OnInit {
     }
 
     if (this.formCorrect) {
-      this.player = { "id": form.player.id };
-      this.game = { "id": form.game.id };
+      this.player = { "id": this.playerId };
+      this.game = { "id": this.gameId };
 
-      if (form.result === 'No Decision')
-        this.result_val = 0;
-      else if (form.result === 'Win')
-        this.result_val = 1;
-      else if (form.result === 'Loss')
-        this.result_val = 2;
-      else if (form.result === 'Save')
-        this.result_val = 3;
-      else if (form.result === 'Tie')
-        this.result_val = 4;
 
-      this.pitchingStat = new PitchingStats(this.player, this.game, form.innings, form.earnedRuns, form.totalRuns,
-        form.strikeouts, form.walks, form.hits, form.hitByPitch, form.wildPitches, form.stolenBases, form.pickOffs, this.result_val);
-      this.data.addPitchingStat(this.pitchingStat).subscribe();
+      this.pitchingStat = new PitchingStatsUpdate( this.pitchingBean.id ,this.player, this.game, form.innings, form.earnedRuns, form.totalRuns,
+        form.strikeouts, form.walks, form.hits, form.hitByPitch, form.wildPitches, form.stolenBases, form.pickOffs, form.result);
+      //this.data.addPitchingStat(this.pitchingStat).subscribe();
+      this.data.updatePitchingStat(this.pitchingStat).subscribe();
       this.pitchingStatForm.reset();
       console.log(this.pitchingStat);
       this.successHidden = false;

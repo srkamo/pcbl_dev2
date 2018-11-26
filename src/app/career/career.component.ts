@@ -1,15 +1,17 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { DataService } from '../data.service';
 import { MatPaginator, MatSort, MatTableDataSource, MatOption } from '@angular/material';
-import {DataSource} from '@angular/cdk/collections';
+import { DataSource} from '@angular/cdk/collections';
 import { Observable } from 'rxjs';
+import { Router, ActivatedRoute, Params, NavigationEnd} from '@angular/router';
 
 @Component({
   selector: 'app-career',
   templateUrl: './career.component.html',
   styleUrls: ['./career.component.scss']
 })
-export class CareerComponent implements OnInit {
+export class CareerComponent implements OnInit, OnDestroy {
+  navigationSubscription;
 
   battingStats;
   battingAllTime;
@@ -21,8 +23,12 @@ export class CareerComponent implements OnInit {
  
   @ViewChild('battingTableSort') public battingTableSort: MatSort;
   @ViewChild('pitchingTableSort') public pitchingTableSort: MatSort;
-  constructor(private data: DataService) { 
-
+  constructor(private data: DataService, private router: Router) {
+    this.navigationSubscription = this.router.events.subscribe((e: any) => {
+      if(e instanceof NavigationEnd){
+        this.ngOnInit();
+      }
+    });
   }
 
   ngOnInit() {
@@ -36,6 +42,11 @@ export class CareerComponent implements OnInit {
         this.pitchingAllTime = data['totalPitching'][0];
       }  
     ); 
-    }
+  }
 
+  ngOnDestroy(){
+    if(this.navigationSubscription){
+      this.navigationSubscription.unsubscribe();
+    }
+  }
 }
