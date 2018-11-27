@@ -71,7 +71,7 @@ export class UpdateTeamFormComponent implements OnInit {
       }
 
       this.updateTeams = {"season_id": this.season_id, "team_ids": this.teams_ids};
-      //this.data.updateSeasonTeam(this.updateTeams).subscribe();
+      this.data.updateSeasonTeam(this.updateTeams).subscribe();
       this.teams_ids = new Array();
       this.updateTeamForm.reset();
       console.log(this.updateTeams);

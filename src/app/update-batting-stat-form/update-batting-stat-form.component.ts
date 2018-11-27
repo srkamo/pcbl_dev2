@@ -220,7 +220,7 @@ export class UpdateBattingStatFormComponent implements OnInit {
       console.log(this.battingStat);
       this.successHidden = false;
       this.failHidden = true;
-      //this.data.addBattingStat(this.battingStat).subscribe();
+      this.data.addBattingStat(this.battingStat).subscribe();
       this.data.updateBattingStat(this.battingStat).subscribe();
       this.battingStatForm.reset();
     }

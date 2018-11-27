@@ -186,7 +186,7 @@ export class UpdatePitchingStatFormComponent implements OnInit {
 
       this.pitchingStat = new PitchingStatsUpdate( this.pitchingBean.id ,this.player, this.game, form.innings, form.earnedRuns, form.totalRuns,
         form.strikeouts, form.walks, form.hits, form.hitByPitch, form.wildPitches, form.stolenBases, form.pickOffs, form.result);
-      //this.data.addPitchingStat(this.pitchingStat).subscribe();
+      this.data.addPitchingStat(this.pitchingStat).subscribe();
       this.data.updatePitchingStat(this.pitchingStat).subscribe();
       this.pitchingStatForm.reset();
       console.log(this.pitchingStat);

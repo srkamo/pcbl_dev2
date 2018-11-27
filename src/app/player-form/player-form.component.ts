@@ -76,7 +76,7 @@ export class PlayerFormComponent implements OnInit {
     console.log(this.player);
     if(this.formCorrect){
     this.player = new Player(form.firstName, form.lastName, form.jersey, form.positions, form.throws, form.bats);
-    //this.data.addPlayer(this.player).subscribe()
+    this.data.addPlayer(this.player).subscribe()
     this.submitted = true;
     this.playerForm.reset();
     this.successHidden = false;
