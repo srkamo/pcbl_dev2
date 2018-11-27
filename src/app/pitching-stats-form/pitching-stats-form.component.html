@@ -21,7 +21,7 @@
     <div class="form-group">
       <label for="name">Game</label>
       <select class="form-control" [(value)]="selGame" formControlName="game" (selectionChange)="gameSelect(selGame.id)" required>
-        <option *ngFor="let game of games" [value]="game">{{game.opponentTeamInfo}} {{game.date.substring(0,10)}}</option>
+        <option *ngFor="let game of games" [value]="game">{{game.gameString}}</option>
       </select>
     </div>
     
