@@ -12,19 +12,23 @@
     </div>
 
     <div class="form-group">
+        <mat-form-field>
       <label>Player</label>
-      <select class="form-control" [(value)]="selPlayer" formControlName="player" (selectionChange)="playerSelect(selPlayer.id)"
+      <mat-select class="form-control" [(value)]="selPlayer" formControlName="player" (selectionChange)="playerSelect(selPlayer.id)"
         required>
-        <option *ngFor="let player of players" [value]="player">{{player.displayName}}</option>
-      </select>
+        <mat-option *ngFor="let player of players" [value]="player">{{player.displayName}}</mat-option>
+      </mat-select>
+      </mat-form-field>
     </div>
 
     <div class="form-group">
+        <mat-form-field>
       <label>Game</label>
-      <select class="form-control" [(value)]="selGame" formControlName="game" (selectionChange)="gameSelect(selGame.id)"
+      <mat-select class="form-control" [(value)]="selGame" formControlName="game" (selectionChange)="gameSelect(selGame.game_id)"
         required>
-        <option *ngFor="let game of games" [value]="game">{{game.gameString}} </option>
-      </select>
+        <mat-option *ngFor="let game of games" [value]="game">{{game.gameString}} </mat-option>
+      </mat-select>
+      </mat-form-field>
     </div>
 
     <div>

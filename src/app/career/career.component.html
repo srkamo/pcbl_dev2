@@ -1,8 +1,8 @@
 <h1>All Time Career</h1>
 
 <form>
-  <input type="radio" (click)="isOn= false; checked = true" name="chart" checked="true"> Batting
-  <input type="radio" (click)="isOn= true; checked = true" name="chart"> Pitching
+    <label class="selector"><input type="radio" (click)="isOn= false; checked = true" name="chart" checked="true"> Batting</label>
+    <label class="selector"><input type="radio" (click)="isOn= true; checked = true" name="chart"> Pitching</label>
 </form>
 
 <ul [hidden]="isOn">

@@ -103,7 +103,7 @@ export class PitchingStatsFormComponent implements OnInit {
 
     if (this.formCorrect) {
       this.player = { "id": form.player.id };
-      this.game = { "id": form.game.id };
+      this.game = { "id": form.game.game_id };
 
       if (form.result === 'No Decision')
         this.result_val = 0;

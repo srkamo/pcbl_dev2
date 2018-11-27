@@ -7,7 +7,7 @@ delete the current ng6
     $sudo rm -rf ng6
 rename the pcbl_dev2 folder to ng6
     $sudo mv pcbl_dev2 ng6
-$cd ng6
+    $cd ng6
 run 
     $sudo npm install --unsafe-perm
     $sudo ng build

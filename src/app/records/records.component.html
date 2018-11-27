@@ -13,10 +13,10 @@
   </li>
 </ul> -->
 
-<form>
-  <input type="radio" (click)="allTimeRadio()" name="chart" > All Time
-  <input type="radio" (click)="SingleSeasonRadio()" name="chart"> Single Season
-  <input type="radio" (click)="SingleGameRadio()" name="chart"> Single Game
+<form >
+  <label class="selector"><input type="radio" (click)="allTimeRadio()" name="chart" > All Time</label> 
+  <label class="selector"><input type="radio" (click)="SingleSeasonRadio()" name="chart" > Single Season</label> 
+  <label class="selector"><input type="radio" (click)="SingleGameRadio()" name="chart" > Single Game</label> 
 </form>
 
 
@@ -1069,7 +1069,7 @@
 
 
     <li>
-      <strong>Runs</strong>
+      <strong>Hit By Pitch</strong>
       <table mat-table class="mat-elevation-z8 seasonLine" [dataSource]="game_hitbypitch">
         <ng-container matColumnDef="recordString">
           <th mat-header-cell *matHeaderCellDef> Name </th>

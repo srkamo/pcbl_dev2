@@ -67,10 +67,12 @@ export class BattingStatsFormComponent implements OnInit {
   }
 
   playerSelect(id){
+    console.log("id: " + id);
     this.playerId = id;
   }
 
   gameSelect(id){
+    console.log("id: " + id);
     this.gameId = id;
   }
 
@@ -133,6 +135,7 @@ export class BattingStatsFormComponent implements OnInit {
       this.successHidden = false;
       this.failHidden = true;
       this.data.addBattingStat(this.battingStat).subscribe();
+      console.log(this.battingStat);
       this.battingStatForm.reset();
     }
     else{

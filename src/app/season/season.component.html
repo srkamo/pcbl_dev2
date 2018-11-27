@@ -13,8 +13,8 @@
 </ul>
 
 <form  >
-  <input type="radio" (click)="isOn= false; checked = true" name="chart" checked="true" id="battingButton" > Batting
-  <input type="radio" (click)="isOn= true; checked = true" name="chart" id="battingButton"> Pitching
+    <label class="selector"><input type="radio" (click)="isOn= false; checked = true" name="chart" checked="true" id="battingButton" > Batting</label>
+      <label class="selector"> <input type="radio" (click)="isOn= true; checked = true" name="chart" id="battingButton"> Pitching</label>
 </form> 
 
 <ul [hidden]="isOn" class="stats">

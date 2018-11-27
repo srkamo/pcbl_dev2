@@ -1,38 +1,42 @@
 <div class="container chart">
   <h1>Create New Pitching Stat</h1>
-  <form [formGroup]="pitchingStatForm" (ngSubmit)="onSubmit(pitchingStatForm.value)"  >
-    
-      <div class="form-group">
-    <mat-form-field>
-      <mat-select [(value)]="selSeason" (selectionChange)="selectedSeason(selSeason.id)" placeholder="Season Select">
-        <mat-option *ngFor="let season of seasons" [value]="season">{{season.season}} {{season.year}} </mat-option>
-      </mat-select>
-    </mat-form-field>
-      </div>
+  <form [formGroup]="pitchingStatForm" (ngSubmit)="onSubmit(pitchingStatForm.value)">
+
+    <div class="form-group">
+      <mat-form-field>
+        <mat-select [(value)]="selSeason" (selectionChange)="selectedSeason(selSeason.id)" placeholder="Season Select">
+          <mat-option *ngFor="let season of seasons" [value]="season">{{season.season}} {{season.year}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
 
 
     <div class="form-group">
-      <label for="name">Player</label>
-      <select class="form-control" [(value)]="selPlayer" formControlName="player" (selectionChange)="playerSelect(selPlayer.id)" required>
-        <option *ngFor="let player of players" [value]="player">{{player.displayName}}</option>
-      </select>
+      <mat-form-field>
+        <label for="name">Player</label>
+        <mat-select [(value)]="selPlayer" formControlName="player" (selectionChange)="playerSelect(selPlayer.id)" class="form-control">
+          <mat-option *ngFor="let player of players" [value]="player">{{player.displayName}}</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
 
     <div class="form-group">
-      <label for="name">Game</label>
-      <select class="form-control" [(value)]="selGame" formControlName="game" (selectionChange)="gameSelect(selGame.id)" required>
-        <option *ngFor="let game of games" [value]="game">{{game.gameString}}</option>
-      </select>
+      <mat-form-field>
+        <label for="name">Game</label>
+        <mat-select [(value)]="selGame" formControlName="game" (selectionChange)="gameSelect(selGame.game_id)" class="form-control">
+          <mat-option *ngFor="let game of games" [value]="game">{{game.gameString}}</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
-    
-    <div >
+
+    <div>
       <label for="name">Innings</label>
       <input type="text" class="form-control" formControlName="innings" required>
     </div>
 
     <div class="form-group">
       <label for="name">Earned Runs</label>
-      <input type="text" class="form-control"  formControlName="earnedRuns" required>
+      <input type="text" class="form-control" formControlName="earnedRuns" required>
     </div>
 
     <div class="form-group">
@@ -84,9 +88,8 @@
 
     <button type="submit" class="btn btn-success">Submit</button>
 
-    <div [hidden]="successHidden" class="status">Created Stat</div> 
+    <div [hidden]="successHidden" class="status">Created Stat</div>
     <div [hidden]="failHidden" class="status">Error</div>
 
   </form>
 </div>
-
