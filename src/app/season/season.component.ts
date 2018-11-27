@@ -43,10 +43,6 @@ export class SeasonComponent implements OnInit, OnDestroy {
         this.seasonId = params['seasonId'];
       });
 
-
-    if(this.seasonId == null){
-      this.seasonId = 1;
-    }
     this.data.getStatsBySeason(this.seasonId).subscribe(
       data => {
         this.dropDown = data['seasonsDropdown'];
