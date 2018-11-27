@@ -180,6 +180,8 @@ callBackSeasonByPlayer(player){
         this.seasonsDrop = data;
       }
     );
+
+    
   }
 
   callBackGameBySeasonPlayer(id){
@@ -196,6 +198,20 @@ callBackSeasonByPlayer(player){
         
       }
     );
+
+    this.data.getStatsSeasonByPlayer(this.playerId).subscribe(
+      data => {
+        this.battingStats_ = new MatTableDataSource(data['seasonBatting']);
+        this.battingStats_.sort = this.battingTableSort_;
+        this.pitchingStats_ = new MatTableDataSource(data['seasonPitching']);
+        this.pitchingStats_.sort = this.pitchingTableSort_;
+        this.playerAllBat = data['allTimeBatting'][0];
+        this.playerAllPitch = data['allTimePitching'][0];
+        
+      }
+    );
+
+
   }
 
   callBackAllSeasonByPlayer(player){
@@ -211,6 +227,8 @@ callBackSeasonByPlayer(player){
         
       }
     );
+
+    this.callBackSeasonByPlayer(player);
   }
 
   ngOnDestroy(){

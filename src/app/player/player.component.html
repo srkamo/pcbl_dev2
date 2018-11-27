@@ -43,10 +43,10 @@
   </form> 
 
 <form  >
-  <input type="radio" (click)="allTime= true; checked = true; currPlayer = null" name="chart" id="allTimeButton" > All Time
-  <input type="radio" (click)="allTime= false; checked = true; currPlayer = null" name="chart" id="seasonButton" checked="true" > Season
+  <input type="radio" (click)="allTime= true; checked = true;" name="chart" id="allTimeButton" > All Time
+  <input type="radio" (click)="allTime= false; checked = true;" name="chart" id="seasonButton" checked="true" > Season
 </form> 
-
+<!--  currPlayer = null -->
 <ul [hidden] = "!currPlayer" class="playerDesc"><li>
   <strong>{{currPlayer?.displayName}}</strong> <br> 
   <strong>Jersey Number: </strong>  {{currPlayer?.jerseyNumber}} <br>
@@ -65,7 +65,7 @@
         <ng-container matColumnDef="gameString">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Game </th>
           <td mat-cell *matCellDef="let element">{{element.gameString}}</td>
-          <td mat-footer-cell *matFooterCellDef> Team </td>
+          <td mat-footer-cell *matFooterCellDef> Total </td>
         </ng-container>
   
         <!-- <ng-container matColumnDef="numGames">
@@ -192,7 +192,7 @@
           <ng-container matColumnDef="gameString">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Game </th>
               <td mat-cell *matCellDef="let element">{{element.gameString}}</td>
-              <td mat-footer-cell *matFooterCellDef> Team </td>
+              <td mat-footer-cell *matFooterCellDef> Total </td>
           </ng-container>
   
         <!-- <ng-container matColumnDef="numGames">
@@ -315,7 +315,7 @@
             <ng-container matColumnDef="seasonDisplayName">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Season </th>
               <td mat-cell *matCellDef="let element">{{element.seasonDisplayName}}</td>
-              <td mat-footer-cell *matFooterCellDef> Team </td>
+              <td mat-footer-cell *matFooterCellDef> Total </td>
             </ng-container>
       
             <!-- <ng-container matColumnDef="numGames">
@@ -442,7 +442,7 @@
               <ng-container matColumnDef="seasonDisplayName">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header> Season </th>
                   <td mat-cell *matCellDef="let element">{{element.seasonDisplayName}}</td>
-                  <td mat-footer-cell *matFooterCellDef> Team </td>
+                  <td mat-footer-cell *matFooterCellDef> Total </td>
               </ng-container>
       
             <!-- <ng-container matColumnDef="numGames">
