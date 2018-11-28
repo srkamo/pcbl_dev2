@@ -11,7 +11,7 @@ export class BattingStats {
         public hitByPitch: string,
         public runs: string,
         public rbis: string,
-        public strikeouts: string,
+        public strikeOuts: string,
         public sacrifices: string,
         public stolenBases: string,
         public caughtStealing: string,

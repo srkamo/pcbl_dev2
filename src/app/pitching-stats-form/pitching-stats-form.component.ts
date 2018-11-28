@@ -91,14 +91,16 @@ export class PitchingStatsFormComponent implements OnInit {
       || form.pickOffs == null) {
       this.formCorrect = false;
     }
-    else if (form.innings.indexOf('.0') < 0 && form.innings.indexOf('.1') < 0 && form.innings.indexOf('.2') < 0) {
+    else if( (form.innings.indexOf('.0') < 0 && form.innings.indexOf('.1') < 0 && form.innings.indexOf('.2') < 0) && !Number.isInteger(parseInt(form.innings))){
       this.formCorrect = false;
+      console.log("innings error: " + form.innings );
 
     }
     else if (!Number.isInteger(parseInt(form.earnedRuns)) || !Number.isInteger(parseInt(form.totalRuns)) || !Number.isInteger(parseInt(form.strikeouts)) ||
       !Number.isInteger(parseInt(form.walks)) || !Number.isInteger(parseInt(form.hits)) || !Number.isInteger(parseInt(form.hitByPitch)) ||
       !Number.isInteger(parseInt(form.wildPitches)) || !Number.isInteger(parseInt(form.stolenBases)) || !Number.isInteger(parseInt(form.pickOffs))) {
       this.formCorrect = false;
+      console.log("int error");
     }
 
     if (this.formCorrect) {

@@ -51,10 +51,10 @@ export class BattingStatsFormComponent implements OnInit {
     );
   }
 
-  selectedSeason(seasonId){
+  selectedSeason(seasonId) {
     this.data.getGamesBySeason(seasonId).subscribe(
       data => {
-       this.games = data;
+        this.games = data;
       }
     );
 
@@ -66,12 +66,12 @@ export class BattingStatsFormComponent implements OnInit {
     console.log("seasonId: " + seasonId);
   }
 
-  playerSelect(id){
+  playerSelect(id) {
     console.log("id: " + id);
     this.playerId = id;
   }
 
-  gameSelect(id){
+  gameSelect(id) {
     console.log("id: " + id);
     this.gameId = id;
   }
@@ -109,36 +109,36 @@ export class BattingStatsFormComponent implements OnInit {
   formCorrect = true;
   successHidden = true;
   failHidden = true;
-  onSubmit(form){
+  onSubmit(form) {
 
-    if(form.player == null || form.game == null || form.atBats == null || form.singles == null || form.doubles == null || form.triples == null
+    if (form.player == null || form.game == null || form.atBats == null || form.singles == null || form.doubles == null || form.triples == null
       || form.homeRuns == null || form.walks == null || form.hitByPitch == null || form.runs == null || form.rbis == null || form.strikeouts == null
-      || form.sacrifices == null || form.stolenBases == null || form.caughtStealing == null || form.passedBalls == null ){
-        this.formCorrect = false;
-       
-    }
-    else if(!Number.isInteger(parseInt(form.atBats)) || !Number.isInteger(parseInt(form.singles)) || !Number.isInteger(parseInt(form.doubles)) ||
-    !Number.isInteger(parseInt(form.triples)) || !Number.isInteger(parseInt(form.homeRuns)) || !Number.isInteger(parseInt(form.walks)) || !Number.isInteger(parseInt(form.hitByPitch))
-    || !Number.isInteger(parseInt(form.runs)) || !Number.isInteger(parseInt(form.rbis)) || !Number.isInteger(parseInt(form.strikeouts)) || !Number.isInteger(parseInt(form.sacrifices))
-    || !Number.isInteger(parseInt(form.stolenBases)) || !Number.isInteger(parseInt(form.caughtStealing)) || !Number.isInteger(parseInt(form.passedBalls))){
+      || form.sacrifices == null || form.stolenBases == null || form.caughtStealing == null || form.passedBalls == null) {
       this.formCorrect = false;
-      
+
+    }
+    else if (!Number.isInteger(parseInt(form.atBats)) || !Number.isInteger(parseInt(form.singles)) || !Number.isInteger(parseInt(form.doubles)) ||
+      !Number.isInteger(parseInt(form.triples)) || !Number.isInteger(parseInt(form.homeRuns)) || !Number.isInteger(parseInt(form.walks)) || !Number.isInteger(parseInt(form.hitByPitch))
+      || !Number.isInteger(parseInt(form.runs)) || !Number.isInteger(parseInt(form.rbis)) || !Number.isInteger(parseInt(form.strikeouts)) || !Number.isInteger(parseInt(form.sacrifices))
+      || !Number.isInteger(parseInt(form.stolenBases)) || !Number.isInteger(parseInt(form.caughtStealing)) || !Number.isInteger(parseInt(form.passedBalls))) {
+      this.formCorrect = false;
+
     }
 
-    if(this.formCorrect){
-      this.player = {"id": form.player.id};
-    this.game = {"id": form.game.game_id}; 
-    this.battingStat = new BattingStats(this.player,this.game , form.atBats,
-      form.singles, form.doubles, form.triples, form.homeRuns, form.walks, form.hitByPitch,
-      form.runs, form.rbis, form.strikeouts, form.sacrifices, form.stolenBases, form.caughtStealing
-      ,form.passedBalls); 
+    if (this.formCorrect) {
+      this.player = { "id": form.player.id };
+      this.game = { "id": form.game.game_id };
+      this.battingStat = new BattingStats(this.player, this.game, form.atBats,
+        form.singles, form.doubles, form.triples, form.homeRuns, form.walks, form.hitByPitch,
+        form.runs, form.rbis, form.strikeouts, form.sacrifices, form.stolenBases, form.caughtStealing
+        , form.passedBalls);
       this.successHidden = false;
       this.failHidden = true;
       this.data.addBattingStat(this.battingStat).subscribe();
       console.log(this.battingStat);
       this.battingStatForm.reset();
     }
-    else{
+    else {
       this.successHidden = true;
       this.failHidden = false;
     }
