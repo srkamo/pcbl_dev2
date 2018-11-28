@@ -86,7 +86,7 @@ export class PitchingStatsFormComponent implements OnInit {
   failHidden = true;
   onSubmit(form) {
 
-    if (form.player == null || form.game == null || form.result == null || form.innings == null || form.earnedRuns == null || form.totalRuns == null
+    if (form.player == null || form.game == null || /*form.result == null ||*/ form.innings == null || form.earnedRuns == null || form.totalRuns == null
       || form.strikeouts == null || form.walks == null || form.hits == null || form.hitByPitch == null || form.wildPitches == null || form.stolenBases == null
       || form.pickOffs == null) {
       this.formCorrect = false;
@@ -105,7 +105,7 @@ export class PitchingStatsFormComponent implements OnInit {
       this.player = { "id": form.player.id };
       this.game = { "id": form.game.game_id };
 
-      if (form.result === 'No Decision')
+      if (form.result === 'No Decision' || form.result == null)
         this.result_val = 0;
       else if (form.result === 'Win')
         this.result_val = 1;
